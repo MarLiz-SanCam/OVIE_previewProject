@@ -2,6 +2,9 @@
 
 'use strict';
 
+import { initEcoCharts, initCompCharts, updateRadarChart } from './charts.js';
+import { initMapTurismo, initMapProveedores } from './map.js';
+
 window.chartInstances = {};
 window.mapInstances   = {};
 const initializedTabs  = new Set(['socio']);
@@ -166,4 +169,6 @@ function toggleLayer(btn, layerKey) {
   if (map.hasLayer(lg)) map.removeLayer(lg);
   else                  map.addLayer(lg);
 }
+
+export { switchTab, calcular, comparar, toggleLayer };
 

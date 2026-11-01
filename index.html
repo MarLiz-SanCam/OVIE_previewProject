@@ -10,33 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
- 
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
-
-  
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
-          colors: {
-            brand: { 50:'#fdf5f7',100:'#fce4eb',200:'#f4b8ca',300:'#e87898',
-                     400:'#d43a6a',500:'#be1a4d',600:'#a01040',700:'#8a1535',
-                     800:'#701040',900:'#4a0620',950:'#2d0315' },
-            gold:  { 50:'#faf5e8',100:'#f4e9c8',300:'#e0c080',400:'#d4aa60',
-                     500:'#c0a050',600:'#a88838',700:'#856a15' },
-          }
-        }
-      }
-    }
-  </script>
-
-  
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <!-- Tabler Icons, Leaflet, main.css y Tailwind se cargan desde assets/js/main.js -->
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
@@ -1011,14 +985,8 @@
   </footer>
 
   <!-- ══ Scripts ═══════════════════════════════════════════════ -->
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- App logic -->
-  <script src="assets/js/app.js"></script>
-  <script src="assets/js/charts.js"></script>
-  <script src="assets/js/map.js"></script>
+  <!-- Entrada de Vite: estilos, Chart.js, Leaflet y lógica de la app -->
+  <script type="module" src="./assets/js/main.js"></script>
 
   <!-- marliz was here coding. -->
 </body>
