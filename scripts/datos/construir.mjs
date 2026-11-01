@@ -54,6 +54,24 @@ function recortar(r) {
   return { ...r, periodos: r.periodos.slice(a, b + 1), series: r.series.map(s => ({ ...s, valores: s.valores.slice(a, b + 1) })) };
 }
 
+/**
+ * Fuente corta para tablas y tarjetas, a partir de las fuentes que trae el archivo
+ * (los tabulados censales listan un censo por año, de 1990 a 2020).
+ */
+function resumirFuente(fuentes, porDefecto) {
+  const t = fuentes.join(' ');
+  if (/Encuesta Nacional de Ocupación y Empleo/.test(t)) return 'INEGI · ENOE';
+  if (/Indicador Trimestral de la Actividad Económica Estatal/.test(t)) return 'INEGI · Cuentas Nacionales (ITAEE)';
+  if (/Indicador Mensual de la Actividad Industrial/.test(t)) return 'INEGI · Cuentas Nacionales (IMAIEF)';
+  if (/Producto Interno Bruto por Entidad/.test(t)) return 'INEGI · Cuentas Nacionales (PIBE)';
+  if (/Defunciones Registradas/.test(t)) return 'INEGI · Estadísticas de Defunciones Registradas';
+  if (/Nacimientos Registrados/.test(t)) return 'INEGI · Estadística de Nacimientos Registrados';
+  const censales = fuentes.filter(f => /Censo|Conteo|Intercensal/.test(f));
+  if (censales.length === 1 && /Censo de Población y Vivienda 2020/.test(censales[0])) return 'INEGI · Censo de Población y Vivienda 2020';
+  if (censales.length) return `INEGI · Censos y Conteos de Población y Vivienda${/Intercensal/.test(t) ? ' · Encuesta Intercensal' : ''}`;
+  return porDefecto ?? fuentes[0] ?? null;
+}
+
 function ultimo(periodos, serie) {
   for (let k = periodos.length - 1; k >= 0; k--) if (serie.valores[k] != null) return { periodo: periodos[k], valor: serie.valores[k], serie: serie.nombre };
   return null;
@@ -91,6 +109,7 @@ for (const ind of manifiesto.indicadores) {
     unidad: ind.unidad ?? r.unidad ?? null,
     periodicidad: ind.periodicidad,
     fuente: ind.fuente ?? r.fuentes[0] ?? null,
+    fuenteCorta: resumirFuente(r.fuentes, ind.fuente),
     fuentes: r.fuentes,
     tituloFuente: r.tituloFuente ?? null,
     fechaConsulta: r.fechaConsulta ?? null,
@@ -110,7 +129,7 @@ for (const ind of manifiesto.indicadores) {
   indice.push({
     id: ind.id, modulo: ind.modulo, bloque: ind.bloque, titulo: ind.titulo,
     ...(datos.pendiente ? { pendiente: true } : {}), ...(ind.sustituye ? { sustituye: ind.sustituye } : {}),
-    unidad: datos.unidad, periodicidad: ind.periodicidad, fuente: datos.fuente,
+    unidad: datos.unidad, periodicidad: ind.periodicidad, fuente: datos.fuente, fuenteCorta: datos.fuenteCorta,
     ultimo: datos.ultimo, grafico: datos.grafico.tipo, archivo: `data/${ind.modulo}/${ind.id}.json`,
   });
   resultados.push({ ind, datos, bytes });

@@ -87,6 +87,11 @@ export async function montarIndicadores() {
     const ind = indicadores.find(i => i.id === tr.dataset.indicador);
     const celda = tr.querySelector('.td-dato');
     if (!ind || !celda) return;
+    const fuente = tr.querySelector('.td-fuente');
+    if (fuente) {
+      const [per, clase] = periodicidad(ind.periodicidad);
+      fuente.innerHTML = `<span class="badge ${clase}">${per}</span><br><span class="text-xs text-gray-400 block mt-0.5">${esc(ind.fuenteCorta ?? ind.fuente ?? '')}</span>`;
+    }
     celda.innerHTML = ind.pendiente ? '<span class="text-amber-700">Pendiente de fuente</span>'
       : POR_REVISAR[ind.id] ? '<span class="text-amber-700">Por revisar</span>'
       : `<a class="text-brand-600 hover:underline" href="#ind-${ind.id}">${periodoLegible(ind.ultimo?.periodo)}</a>`;
