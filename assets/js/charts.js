@@ -2,6 +2,8 @@
 
 'use strict';
 
+import Chart from 'chart.js/auto';
+
 const C = {
   blue:    '#1e5f8c',
   blueL:   'rgba(30,95,140,0.15)',
@@ -252,4 +254,6 @@ function updateRadarChart(da, db, lblA, lblB) {
   _radarChart.data = newData;
   _radarChart.update();
 }
+
+export { initEcoCharts, initCompCharts, updateRadarChart };
 

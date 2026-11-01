@@ -2,6 +2,8 @@
 
 'use strict';
 
+import L from 'leaflet';
+
 window.mapLayers = {};
 
 function dotIcon(color, size = 12) {
@@ -191,4 +193,6 @@ function initMapProveedores() {
 
   window.mapInstances.proveedores = map;
 }
+
+export { initMapTurismo, initMapProveedores };
 
