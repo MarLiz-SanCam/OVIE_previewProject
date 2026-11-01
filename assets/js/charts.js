@@ -1,4 +1,4 @@
-﻿
+
 
 'use strict';
 
@@ -40,8 +40,8 @@ function initPyramidChart() {
   const ctx = document.getElementById('chart-pyramid');
   if (!ctx || window.chartInstances.pyramid) return;
 
-  const labels = ['0â€“4','5â€“9','10â€“14','15â€“19','20â€“24','25â€“29','30â€“34','35â€“39',
-                  '40â€“44','45â€“49','50â€“54','55â€“59','60â€“64','65â€“69','70â€“74','75+'];
+  const labels = ['0–4','5–9','10–14','15–19','20–24','25–29','30–34','35–39',
+                  '40–44','45–49','50–54','55–59','60–64','65–69','70–74','75+'];
 
   const males   = [-84500,-90100,-93200,-87400,-82100,-76500,-69800,-63200,
                    -55400,-47600,-38900,-30100,-22800,-15900,-10200,-8400];
@@ -146,7 +146,7 @@ function initITAEEChart() {
         y: {
           grid: { color: GRID_COLOR },
           ticks: { font: { size: 10 } },
-          title: { display: true, text: 'Ãndice (base 2013=100)', font: { size: 10 }, color: '#9ca3af' }
+          title: { display: true, text: 'Índice (base 2013=100)', font: { size: 10 }, color: '#9ca3af' }
         }
       }
     }
@@ -160,8 +160,8 @@ function initPIBEDonut() {
   window.chartInstances.pibe = new Chart(ctx, {
     type: 'doughnut',
     data: {
-      labels: ['MinerÃ­a / PetrÃ³leo','Comercio','Servicios financieros',
-               'Manufactura','ConstrucciÃ³n','Agropecuario','Otros servicios'],
+      labels: ['Minería / Petróleo','Comercio','Servicios financieros',
+               'Manufactura','Construcción','Agropecuario','Otros servicios'],
       datasets: [{
         data: [42, 18, 12, 8, 7, 5, 8],
         backgroundColor: [C.blue, C.teal, C.violet, C.amber, C.pink, C.emerald, C.gray],
@@ -216,7 +216,7 @@ function initRadarChart() {
 
 function buildRadarData(da, db, lblA, lblB) {
   const maxes = { pob:600000, hogares:180000, pea:260000, pib_pc:160000, informal:75, densidad:2000 };
-  const labels = ['PoblaciÃ³n','Hogares','PEA','PIB pc','Informalidad *','Densidad'];
+  const labels = ['Población','Hogares','PEA','PIB pc','Informalidad *','Densidad'];
   const norm = (val, key) => Math.min(100, Math.round(val / maxes[key] * 100));
 
   return {

@@ -1,4 +1,4 @@
-﻿
+
 
 'use strict';
 
@@ -28,30 +28,30 @@ function switchTab(id, btn) {
 }
 
 const VAR_DATA = {
-  pob_total:    { label: 'PoblaciÃ³n total',           val: 2402598 },
+  pob_total:    { label: 'Población total',           val: 2402598 },
   pob_pea:      { label: 'PEA',                       val: 1205432 },
-  pob_ocupada:  { label: 'PoblaciÃ³n ocupada',         val: 1085234 },
-  num_hogares:  { label: 'NÂº de hogares',             val: 710245  },
+  pob_ocupada:  { label: 'Población ocupada',         val: 1085234 },
+  num_hogares:  { label: 'Nº de hogares',             val: 710245  },
   pib_mmp:      { label: 'PIBE (millones de pesos)',  val: 249700  },
-  pib_pc:       { label: 'PIB per cÃ¡pita (pesos)',    val: 103957  },
+  pib_pc:       { label: 'PIB per cápita (pesos)',    val: 103957  },
   tasa_informal:{ label: 'Tasa de informalidad (%)',  val: 56.4    },
   mortalidad:   { label: 'Tasa mortalidad general',   val: 5.2     },
   fecundidad:   { label: 'Tasa global fecundidad',    val: 2.1     },
-  densidad:     { label: 'Densidad hab/kmÂ²',          val: 38.7    },
+  densidad:     { label: 'Densidad hab/km²',          val: 38.7    },
   edad_mediana: { label: 'Edad mediana',              val: 28.3    },
 };
 
 const MUNI_DATA = {
   'Villahermosa': { pob:380011, hogares:115430, pea:168432, pib_pc:145230, informal:48.2, densidad:1820, edad_med:30.1 },
   'Centro':       { pob:538980, hogares:160234, pea:238765, pib_pc:98420,  informal:52.1, densidad:142,  edad_med:28.7 },
-  'CÃ¡rdenas':     { pob:268008, hogares:78432,  pea:118654, pib_pc:72340,  informal:61.3, densidad:98,   edad_med:26.4 },
-  'ParaÃ­so':      { pob:109956, hogares:32765,  pea:49832,  pib_pc:87650,  informal:57.8, densidad:215,  edad_med:27.8 },
+  'Cárdenas':     { pob:268008, hogares:78432,  pea:118654, pib_pc:72340,  informal:61.3, densidad:98,   edad_med:26.4 },
+  'Paraíso':      { pob:109956, hogares:32765,  pea:49832,  pib_pc:87650,  informal:57.8, densidad:215,  edad_med:27.8 },
   'Comalcalco':   { pob:211614, hogares:62341,  pea:93210,  pib_pc:65430,  informal:63.2, densidad:176,  edad_med:26.1 },
   'Nacajuca':     { pob:116345, hogares:34123,  pea:51234,  pib_pc:61230,  informal:65.4, densidad:312,  edad_med:25.3 },
-  'CunduacÃ¡n':    { pob:143152, hogares:42312,  pea:63456,  pib_pc:58340,  informal:64.7, densidad:143,  edad_med:26.8 },
+  'Cunduacán':    { pob:143152, hogares:42312,  pea:63456,  pib_pc:58340,  informal:64.7, densidad:143,  edad_med:26.8 },
   'Macuspana':    { pob:168960, hogares:49876,  pea:74321,  pib_pc:54230,  informal:68.1, densidad:42,   edad_med:25.6 },
   'Teapa':        { pob:52043,  hogares:15234,  pea:22134,  pib_pc:48230,  informal:69.3, densidad:57,   edad_med:25.1 },
-  'BalancÃ¡n':     { pob:59321,  hogares:17654,  pea:25432,  pib_pc:45230,  informal:71.2, densidad:18,   edad_med:24.8 },
+  'Balancán':     { pob:59321,  hogares:17654,  pea:25432,  pib_pc:45230,  informal:71.2, densidad:18,   edad_med:24.8 },
 };
 
 function calcular() {
@@ -75,8 +75,8 @@ function calcular() {
   switch (op) {
     case '+': result = v1 + v2; break;
     case '-': result = v1 - v2; break;
-    case 'Ã—': result = v1 * v2; break;
-    case 'Ã·': result = v2 !== 0 ? v1 / v2 : null; break;
+    case '×': result = v1 * v2; break;
+    case '÷': result = v2 !== 0 ? v1 / v2 : null; break;
     default:  result = null;
   }
 
@@ -94,7 +94,7 @@ function calcular() {
 }
 
 function fmtNum(n) {
-  if (!isFinite(n)) return 'â€”';
+  if (!isFinite(n)) return '—';
   const abs = Math.abs(n);
   if (abs >= 1e9) return (n / 1e9).toFixed(3) + ' B';
   if (abs >= 1e6) return (n / 1e6).toFixed(2) + ' M';
@@ -119,13 +119,13 @@ function comparar() {
   if (hB) hB.textContent = kb;
 
   const rows = [
-    ['PoblaciÃ³n total',   fmt(da.pob),             fmt(db.pob),             pctDiff(da.pob,       db.pob)       ],
+    ['Población total',   fmt(da.pob),             fmt(db.pob),             pctDiff(da.pob,       db.pob)       ],
     ['Hogares',           fmt(da.hogares),          fmt(db.hogares),          pctDiff(da.hogares,   db.hogares)   ],
     ['PEA',               fmt(da.pea),              fmt(db.pea),              pctDiff(da.pea,       db.pea)       ],
-    ['PIB per cÃ¡pita',    '$ '+fmt(da.pib_pc),      '$ '+fmt(db.pib_pc),      pctDiff(da.pib_pc,    db.pib_pc)    ],
+    ['PIB per cápita',    '$ '+fmt(da.pib_pc),      '$ '+fmt(db.pib_pc),      pctDiff(da.pib_pc,    db.pib_pc)    ],
     ['Informalidad',      da.informal+'%',          db.informal+'%',          absDiff(da.informal,  db.informal)+' pp'],
-    ['Densidad (hab/kmÂ²)',fmt(da.densidad),         fmt(db.densidad),         pctDiff(da.densidad,  db.densidad)  ],
-    ['Edad mediana',      da.edad_med+' aÃ±os',      db.edad_med+' aÃ±os',      absDiff(da.edad_med,  db.edad_med)+' aÃ±os'],
+    ['Densidad (hab/km²)',fmt(da.densidad),         fmt(db.densidad),         pctDiff(da.densidad,  db.densidad)  ],
+    ['Edad mediana',      da.edad_med+' años',      db.edad_med+' años',      absDiff(da.edad_med,  db.edad_med)+' años'],
   ];
 
   const tbody = document.getElementById('comp-tbody');
@@ -134,7 +134,7 @@ function comparar() {
       <tr class="hover:bg-gray-50 transition-colors">
         <td class="px-4 py-3 text-sm font-medium text-gray-700">${label}</td>
         <td class="px-4 py-3 text-sm font-semibold text-blue-700">${va}</td>
-        <td class="px-4 py-3 text-sm font-semibold" style="color:var(--teal-700)">${vb}</td>
+        <td class="px-4 py-3 text-sm font-semibold" style="color:var(--chart-teal)">${vb}</td>
         <td class="px-4 py-3 text-xs text-gray-500">${d}</td>
       </tr>`
     ).join('');
@@ -148,7 +148,7 @@ function comparar() {
 
 function fmt(n)         { return n.toLocaleString('es-MX'); }
 function pctDiff(a, b)  {
-  if (b === 0) return 'â€”';
+  if (b === 0) return '—';
   const d = ((a - b) / b * 100).toFixed(1);
   return (d > 0 ? '+' : '') + d + '%';
 }

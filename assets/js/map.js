@@ -1,4 +1,4 @@
-﻿
+
 
 'use strict';
 
@@ -23,7 +23,7 @@ function initMapTurismo() {
   const map = L.map('map-turismo', { zoomControl: true }).setView([17.84, -92.62], 8);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Â© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 17,
   }).addTo(map);
 
@@ -40,23 +40,23 @@ function initMapTurismo() {
     'Pantanos de Centla':        '#1d9e75',
     "Bij Yokot'an":              '#854f0b',
     'Aventura Olmeca-Zoque':     '#7c3aed',
-    'RÃ­os Mayas':                '#0891b2',
+    'Ríos Mayas':                '#0891b2',
     'Del Cacao al Chocolate':    '#92400e',
   };
 
   const routePoints = [
-    { lat:17.9869, lng:-92.9303, name:'Villahermosa',    route:'Gran Ruta Villahermosa', desc:'Capital del estado Â· museo La Venta' },
-    { lat:18.2456, lng:-93.1876, name:'ParaÃ­so',         route:'Gran Ruta Villahermosa', desc:'Playas y lagunas costeras' },
-    { lat:18.5978, lng:-92.6412, name:'Centla',          route:'Pantanos de Centla',     desc:'Reserva de la biÃ³sfera Â· manglar' },
-    { lat:18.3412, lng:-92.5634, name:'Jonuta',          route:'Pantanos de Centla',     desc:'Fauna acuÃ¡tica Â· ecoturismo' },
+    { lat:17.9869, lng:-92.9303, name:'Villahermosa',    route:'Gran Ruta Villahermosa', desc:'Capital del estado · museo La Venta' },
+    { lat:18.2456, lng:-93.1876, name:'Paraíso',         route:'Gran Ruta Villahermosa', desc:'Playas y lagunas costeras' },
+    { lat:18.5978, lng:-92.6412, name:'Centla',          route:'Pantanos de Centla',     desc:'Reserva de la biósfera · manglar' },
+    { lat:18.3412, lng:-92.5634, name:'Jonuta',          route:'Pantanos de Centla',     desc:'Fauna acuática · ecoturismo' },
     { lat:18.1734, lng:-93.2876, name:'Nacajuca',        route:"Bij Yokot'an",           desc:'Centro cultural chontal' },
-    { lat:18.0756, lng:-93.2198, name:'Jalpa de MÃ©ndez', route:"Bij Yokot'an",           desc:'ArtesanÃ­as y gastronomÃ­a' },
-    { lat:17.6234, lng:-92.9612, name:'Teapa',           route:'Aventura Olmeca-Zoque',  desc:'Grutas de CoconÃ¡ Â· aguas termales' },
-    { lat:17.6523, lng:-92.6134, name:'Macuspana',       route:'Aventura Olmeca-Zoque',  desc:'Zona arqueolÃ³gica La Mar' },
-    { lat:17.5356, lng:-91.7824, name:'BalancÃ¡n',        route:'RÃ­os Mayas',             desc:'RÃ­o Usumacinta Â· selva lacandona' },
-    { lat:17.4512, lng:-91.9234, name:'Emiliano Zapata', route:'RÃ­os Mayas',             desc:'Frontera con Guatemala Â· ecoturismo' },
-    { lat:17.9289, lng:-93.2187, name:'Comalcalco',      route:'Del Cacao al Chocolate', desc:'Zona arqueolÃ³gica Â· cacao orgÃ¡nico' },
-    { lat:17.8534, lng:-93.3412, name:'CunduacÃ¡n',       route:'Del Cacao al Chocolate', desc:'Cooperativas cacaoteras' },
+    { lat:18.0756, lng:-93.2198, name:'Jalpa de Méndez', route:"Bij Yokot'an",           desc:'Artesanías y gastronomía' },
+    { lat:17.6234, lng:-92.9612, name:'Teapa',           route:'Aventura Olmeca-Zoque',  desc:'Grutas de Coconá · aguas termales' },
+    { lat:17.6523, lng:-92.6134, name:'Macuspana',       route:'Aventura Olmeca-Zoque',  desc:'Zona arqueológica La Mar' },
+    { lat:17.5356, lng:-91.7824, name:'Balancán',        route:'Ríos Mayas',             desc:'Río Usumacinta · selva lacandona' },
+    { lat:17.4512, lng:-91.9234, name:'Emiliano Zapata', route:'Ríos Mayas',             desc:'Frontera con Guatemala · ecoturismo' },
+    { lat:17.9289, lng:-93.2187, name:'Comalcalco',      route:'Del Cacao al Chocolate', desc:'Zona arqueológica · cacao orgánico' },
+    { lat:17.8534, lng:-93.3412, name:'Cunduacán',       route:'Del Cacao al Chocolate', desc:'Cooperativas cacaoteras' },
   ];
 
   routePoints.forEach(p => {
@@ -75,15 +75,15 @@ function initMapTurismo() {
   });
 
   const pueblosMagicos = [
-    { lat:17.9869, lng:-92.9303, name:'Villahermosa',  info:'Capital Â· Zona CICOM Â· Parque La Venta' },
-    { lat:18.1734, lng:-93.2876, name:'Nacajuca',      info:'Pueblo chontal Â· Tabasco' },
-    { lat:17.6234, lng:-92.9612, name:'Teapa',         info:'Grutas de CoconÃ¡ Â· balneario natural' },
+    { lat:17.9869, lng:-92.9303, name:'Villahermosa',  info:'Capital · Zona CICOM · Parque La Venta' },
+    { lat:18.1734, lng:-93.2876, name:'Nacajuca',      info:'Pueblo chontal · Tabasco' },
+    { lat:17.6234, lng:-92.9612, name:'Teapa',         info:'Grutas de Coconá · balneario natural' },
   ];
   pueblosMagicos.forEach(p => {
     const icon = L.divIcon({
       html: `<div style="background:#fbbf24;color:#78350f;width:20px;height:20px;
                border-radius:50%;display:flex;align-items:center;justify-content:center;
-               border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:11px">â˜…</div>`,
+               border:2px solid white;box-shadow:0 1px 4px rgba(0,0,0,0.3);font-size:11px">★</div>`,
       className: '', iconSize: [20,20], iconAnchor: [10,10],
     });
     L.marker([p.lat, p.lng], { icon })
@@ -95,20 +95,20 @@ function initMapTurismo() {
     { lat:17.9923, lng:-92.9287, name:'Hotel Cencali',       stars:4, area:'Villahermosa' },
     { lat:17.9834, lng:-92.9312, name:'Hyatt Regency',        stars:5, area:'Villahermosa' },
     { lat:17.9756, lng:-92.9198, name:'Holiday Inn Express',  stars:3, area:'Villahermosa' },
-    { lat:18.2312, lng:-93.1756, name:'Hotel ParaÃ­so Beach',  stars:3, area:'ParaÃ­so' },
+    { lat:18.2312, lng:-93.1756, name:'Hotel Paraíso Beach',  stars:3, area:'Paraíso' },
     { lat:17.6312, lng:-92.9534, name:'Balneotur Teapa',      stars:2, area:'Teapa' },
   ];
   hoteles.forEach(h => {
     const color = h.stars >= 5 ? '#7c3aed' : h.stars === 4 ? '#1e5f8c' : h.stars === 3 ? '#1d9e75' : '#9ca3af';
     L.marker([h.lat, h.lng], { icon: dotIcon(color, 11) })
-      .bindPopup(`<strong>${h.name}</strong><br><small>${'â˜…'.repeat(h.stars)} Â· ${h.area}</small>`)
+      .bindPopup(`<strong>${h.name}</strong><br><small>${'★'.repeat(h.stars)} · ${h.area}</small>`)
       .addTo(lgHoteles);
   });
 
   const museos = [
-    { lat:17.9876, lng:-92.9356, name:'Parque Museo La Venta',    tipo:'ArqueolÃ³gico' },
+    { lat:17.9876, lng:-92.9356, name:'Parque Museo La Venta',    tipo:'Arqueológico' },
     { lat:17.9823, lng:-92.9245, name:'Museo de Tabasco (MAET)',   tipo:'Historia' },
-    { lat:17.9289, lng:-93.2034, name:'Zona ArqueolÃ³gica Comalcalco', tipo:'ArqueolÃ³gico' },
+    { lat:17.9289, lng:-93.2034, name:'Zona Arqueológica Comalcalco', tipo:'Arqueológico' },
     { lat:17.9756, lng:-92.9134, name:'Museo de Historia Natural', tipo:'Natural' },
   ];
   museos.forEach(m => {
@@ -118,9 +118,9 @@ function initMapTurismo() {
   });
 
   const eco = [
-    { lat:18.5978, lng:-92.6412, name:'Reserva Pantanos de Centla', tipo:'BiÃ³sfera' },
-    { lat:17.6234, lng:-92.9612, name:'Grutas de CoconÃ¡',           tipo:'GeolÃ³gico' },
-    { lat:17.5356, lng:-91.7824, name:'RÃ­o Usumacinta',             tipo:'Ecoaventura' },
+    { lat:18.5978, lng:-92.6412, name:'Reserva Pantanos de Centla', tipo:'Biósfera' },
+    { lat:17.6234, lng:-92.9612, name:'Grutas de Coconá',           tipo:'Geológico' },
+    { lat:17.5356, lng:-91.7824, name:'Río Usumacinta',             tipo:'Ecoaventura' },
     { lat:18.3412, lng:-92.5634, name:'Laguna del Rosario',         tipo:'Humedal' },
   ];
   eco.forEach(e => {
@@ -142,7 +142,7 @@ function initMapProveedores() {
   const map = L.map('map-proveedores').setView([17.97, -92.93], 12);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: 'Â© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     maxZoom: 17,
   }).addTo(map);
 
@@ -152,20 +152,20 @@ function initMapProveedores() {
     'Servicios':     '#1d9e75',
     'Agroindustria': '#059669',
     'Turismo':       '#7c3aed',
-    'ConstrucciÃ³n':  '#dc2626',
+    'Construcción':  '#dc2626',
   };
 
   const negocios = [
-    { lat:17.9956, lng:-92.9304, name:'Comercializadora del Sureste SA',  sector:'Comercio',     estrato:'Mediana', personal:'51â€“100' },
-    { lat:17.9823, lng:-92.9156, name:'Industrias TabasqueÃ±as SA de CV',  sector:'Manufactura',  estrato:'Grande',  personal:'251+' },
-    { lat:17.9734, lng:-92.9489, name:'Servicios Profesionales SRL',       sector:'Servicios',    estrato:'Micro',   personal:'1â€“5' },
-    { lat:18.0123, lng:-92.9312, name:'Agroindustria del TrÃ³pico',         sector:'Agroindustria',estrato:'PequeÃ±a', personal:'6â€“10' },
-    { lat:17.9612, lng:-92.9078, name:'Hotel Gran Tabasco',                sector:'Turismo',      estrato:'Mediana', personal:'51â€“100' },
-    { lat:17.9923, lng:-92.9423, name:'Constructora Regional SA de CV',    sector:'ConstrucciÃ³n', estrato:'PequeÃ±a', personal:'11â€“30' },
-    { lat:17.9512, lng:-92.9234, name:'Distribuidora Olmeca',              sector:'Comercio',     estrato:'PequeÃ±a', personal:'11â€“30' },
-    { lat:17.9834, lng:-92.9045, name:'Centro de CapacitaciÃ³n Tabasco',    sector:'Servicios',    estrato:'Micro',   personal:'1â€“5' },
-    { lat:18.0034, lng:-92.9512, name:'Frutas Tropicales del Sureste',     sector:'Agroindustria',estrato:'Mediana', personal:'51â€“100' },
-    { lat:17.9723, lng:-92.9367, name:'Ferretera Industrial TabasqueÃ±a',   sector:'Comercio',     estrato:'PequeÃ±a', personal:'11â€“30' },
+    { lat:17.9956, lng:-92.9304, name:'Comercializadora del Sureste SA',  sector:'Comercio',     estrato:'Mediana', personal:'51–100' },
+    { lat:17.9823, lng:-92.9156, name:'Industrias Tabasqueñas SA de CV',  sector:'Manufactura',  estrato:'Grande',  personal:'251+' },
+    { lat:17.9734, lng:-92.9489, name:'Servicios Profesionales SRL',       sector:'Servicios',    estrato:'Micro',   personal:'1–5' },
+    { lat:18.0123, lng:-92.9312, name:'Agroindustria del Trópico',         sector:'Agroindustria',estrato:'Pequeña', personal:'6–10' },
+    { lat:17.9612, lng:-92.9078, name:'Hotel Gran Tabasco',                sector:'Turismo',      estrato:'Mediana', personal:'51–100' },
+    { lat:17.9923, lng:-92.9423, name:'Constructora Regional SA de CV',    sector:'Construcción', estrato:'Pequeña', personal:'11–30' },
+    { lat:17.9512, lng:-92.9234, name:'Distribuidora Olmeca',              sector:'Comercio',     estrato:'Pequeña', personal:'11–30' },
+    { lat:17.9834, lng:-92.9045, name:'Centro de Capacitación Tabasco',    sector:'Servicios',    estrato:'Micro',   personal:'1–5' },
+    { lat:18.0034, lng:-92.9512, name:'Frutas Tropicales del Sureste',     sector:'Agroindustria',estrato:'Mediana', personal:'51–100' },
+    { lat:17.9723, lng:-92.9367, name:'Ferretera Industrial Tabasqueña',   sector:'Comercio',     estrato:'Pequeña', personal:'11–30' },
   ];
 
   negocios.forEach(n => {
@@ -184,7 +184,7 @@ function initMapProveedores() {
             background:${color};margin-right:4px;vertical-align:middle"></span>
           ${n.sector}
         </div>
-        <div style="font-size:11px;color:#777;margin-top:2px">Estrato: ${n.estrato} Â· ${n.personal} personas</div>
+        <div style="font-size:11px;color:#777;margin-top:2px">Estrato: ${n.estrato} · ${n.personal} personas</div>
       </div>`)
       .addTo(map);
   });
