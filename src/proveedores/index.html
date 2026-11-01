@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- @include head {"titulo":"Proveedores · OVIE"} -->
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- @include franja -->
+  <!-- @include header -->
+  <!-- @include brand-bar -->
+
+  <main class="max-w-screen-xl mx-auto px-5 py-8">
+
+    <!-- @include nav {"activo":"proveedores"} -->
+
+    <div id="contenido">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#fef3c7;color:#92400e">
+          <i class="ti ti-building-store"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold text-gray-900">Búsqueda de proveedores y competidores</h1>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Establecimientos económicos del DENUE georreferenciados. Localiza proveedores o competidores por actividad, proximidad y tamaño.
+          </p>
+        </div>
+      </div>
+
+      <!-- Search bar -->
+      <div class="search-bar">
+        <div class="search-field flex-grow">
+          <label class="form-label">Actividad o palabra clave</label>
+          <div class="relative">
+            <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" class="form-control pl-8" placeholder="Ej: restaurante, software, cacao…" />
+          </div>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Sector SCIAN</label>
+          <select class="form-control">
+            <option>Todos los sectores</option>
+            <option>11 – Agropecuario</option>
+            <option>31-33 – Manufactura</option>
+            <option>43-46 – Comercio</option>
+            <option>48-49 – Transporte</option>
+            <option>52 – Servicios financieros</option>
+            <option>72 – Alojamiento / restaurantes</option>
+          </select>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Municipio</label>
+          <select class="form-control">
+            <option>Todo Tabasco</option>
+            <option>Villahermosa</option>
+            <option>Centro</option>
+            <option>Cárdenas</option>
+            <option>Paraíso</option>
+            <option>Comalcalco</option>
+            <option>Macuspana</option>
+          </select>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Tamaño</label>
+          <select class="form-control">
+            <option>Cualquier tamaño</option>
+            <option>Micro (0–10)</option>
+            <option>Pequeña (11–50)</option>
+            <option>Mediana (51–250)</option>
+            <option>Grande (251+)</option>
+          </select>
+        </div>
+        <div style="padding-top:20px">
+          <button class="btn btn-primary">
+            <i class="ti ti-search"></i> Buscar
+          </button>
+        </div>
+      </div>
+
+      <!-- Map + Results split -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
+        <div class="lg:col-span-2 map-outer" style="min-height:360px">
+          <div class="map-toolbar">
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2">Capas</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#1e5f8c"></span>Comercio</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#d97706"></span>Manufactura</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#1d9e75"></span>Servicios</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#059669"></span>Agro</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#7c3aed"></span>Turismo</span>
+          </div>
+          <div id="map-proveedores" style="height:320px"></div>
+        </div>
+
+        <div class="card overflow-hidden" style="min-height:320px">
+          <div class="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
+            <p class="text-xs font-semibold text-gray-600">Resultados <span class="text-gray-400 font-normal">— 10 encontrados</span></p>
+            <button class="btn btn-sm btn-outline"><i class="ti ti-download text-xs"></i> CSV</button>
+          </div>
+          <div class="overflow-y-auto" style="max-height:320px">
+            <div class="result-item">
+              <p class="result-item-name">Comercializadora del Sureste SA</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Centro, Villahermosa</p>
+              <span class="result-tag" style="background:#dbeafe;color:#1e40af">Comercio</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Mediana · 51–100 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Industrias Tabasqueñas SA de CV</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Tabasco 2000</p>
+              <span class="result-tag" style="background:#fef3c7;color:#92400e">Manufactura</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Grande · 251+ emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Servicios Profesionales SRL</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Atasta</p>
+              <span class="result-tag" style="background:#dcfce7;color:#166534">Servicios</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Micro · 1–5 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Agroindustria del Trópico</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Nacajuca</p>
+              <span class="result-tag" style="background:#dcfce7;color:#166534">Agroindustria</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 6–10 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Hotel Gran Tabasco</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Paseo Tabasco</p>
+              <span class="result-tag" style="background:#ede9fe;color:#5b21b6">Turismo</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Mediana · 51–100 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Constructora Regional SA de CV</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Petrolera</p>
+              <span class="result-tag" style="background:#fee2e2;color:#991b1b">Construcción</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 11–30 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Distribuidora Olmeca</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Carrizal</p>
+              <span class="result-tag" style="background:#dbeafe;color:#1e40af">Comercio</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 11–30 emp.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DENUE table -->
+      <div class="data-table-wrap overflow-x-auto">
+        <table class="data-table">
+          <thead><tr><th style="width:35%">Indicador DENUE</th><th>Utilidad para el análisis</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">Unidades económicas por estrato</td><td class="td-just">Revela la composición del tejido empresarial: micro, pequeñas, medianas y grandes empresas.</td></tr>
+            <tr><td class="td-name">Unidades por municipio</td><td class="td-just">Identifica los polos de concentración económica y actividad empresarial dentro del estado.</td></tr>
+            <tr><td class="td-name">Actividades por clasificación SCIAN</td><td class="td-just">Muestra la especialización económica del territorio; permite detectar ventajas comparativas y clústeres productivos.</td></tr>
+            <tr><td class="td-name">Tamaño de unidad económica</td><td class="td-just">Clasifica los establecimientos por personal ocupado; refleja la capacidad de generación de empleo formal.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script type="module" src="/assets/js/pages/proveedores.js"></script>
+
+  <!-- marliz was here coding. -->
+</body>
+</html>

@@ -24,10 +24,12 @@ const GRID_COLOR = '#f0f0f0';
 Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
 Chart.defaults.font.size   = 11;
 
-document.addEventListener('DOMContentLoaded', () => {
+window.chartInstances = {};
+
+function initSocioCharts() {
   initPyramidChart();
   initSexDonut();
-});
+}
 
 function initEcoCharts() {
   initITAEEChart();
@@ -255,5 +257,5 @@ function updateRadarChart(da, db, lblA, lblB) {
   _radarChart.update();
 }
 
-export { initEcoCharts, initCompCharts, updateRadarChart };
+export { initSocioCharts, initEcoCharts, initCompCharts, updateRadarChart };
 

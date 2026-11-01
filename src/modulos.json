@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sociodemografico",
+    "titulo": "Sociodemográfico",
+    "icono": "ti-users",
+    "colorIcono": "background:#e1f5ee;color:#0f6e56",
+    "descripcion": "22 indicadores en 5 bloques temáticos. Provee el contexto poblacional necesario para interpretar la dinámica económica y turística de Tabasco.",
+    "activo": true
+  },
+  {
+    "id": "economia",
+    "titulo": "Análisis económico",
+    "icono": "ti-chart-bar",
+    "colorIcono": "background:#eeedfe;color:#4f46e5",
+    "descripcion": "Indicadores de desempeño económico estructural y de alta frecuencia: PIBE, ITAEE, IMAIE y estructura del mercado laboral.",
+    "activo": true
+  },
+  {
+    "id": "proveedores",
+    "titulo": "Proveedores",
+    "icono": "ti-building-store",
+    "colorIcono": "background:#fef3c7;color:#92400e",
+    "descripcion": "Establecimientos económicos del DENUE georreferenciados. Localiza proveedores o competidores por actividad, proximidad y tamaño.",
+    "activo": true
+  },
+  {
+    "id": "turismo",
+    "titulo": "Turismo",
+    "icono": "ti-map-pin",
+    "colorIcono": "background:#e0f2fe;color:#0369a1",
+    "descripcion": "Mapa interactivo por capas que integra la oferta turística del estado, combinando datos de la SETUDE con estadísticas del INEGI para apoyar la inversión y planeación turística.",
+    "activo": true
+  },
+  {
+    "id": "calculadora",
+    "titulo": "Calculadora",
+    "icono": "ti-calculator",
+    "colorIcono": "background:#dcfce7;color:#15803d",
+    "descripcion": "Crea indicadores personalizados combinando variables sociodemográficas, económicas y turísticas mediante operaciones matemáticas básicas.",
+    "activo": false
+  },
+  {
+    "id": "comparar",
+    "titulo": "Comparar áreas",
+    "icono": "ti-arrows-diff",
+    "colorIcono": "background:#fce7f3;color:#be185d",
+    "descripcion": "Compara dos municipios o zonas usando indicadores sociodemográficos, económicos y de bienestar lado a lado.",
+    "activo": false
+  }
+]

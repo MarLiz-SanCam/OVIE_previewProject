@@ -4,6 +4,7 @@
 
 import L from 'leaflet';
 
+window.mapInstances = {};
 window.mapLayers = {};
 
 function dotIcon(color, size = 12) {
@@ -194,5 +195,15 @@ function initMapProveedores() {
   window.mapInstances.proveedores = map;
 }
 
-export { initMapTurismo, initMapProveedores };
+function toggleLayer(btn, layerKey) {
+  btn.classList.toggle('active');
+  const map = window.mapInstances.turismo;
+  if (!map || !window.mapLayers) return;
+  const lg = window.mapLayers[layerKey];
+  if (!lg) return;
+  if (map.hasLayer(lg)) map.removeLayer(lg);
+  else                  map.addLayer(lg);
+}
+
+export { initMapTurismo, initMapProveedores, toggleLayer };
 
