@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OVIE â€” Observatorio de InformaciÃ³n EconÃ³mica Â· Tabasco</title>
+
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+ 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+
+  
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter','system-ui','sans-serif'] },
+          colors: {
+            brand: { 50:'#fdf5f7',100:'#fce4eb',200:'#f4b8ca',300:'#e87898',
+                     400:'#d43a6a',500:'#be1a4d',600:'#a01040',700:'#8a1535',
+                     800:'#701040',900:'#4a0620',950:'#2d0315' },
+            gold:  { 50:'#faf5e8',100:'#f4e9c8',300:'#e0c080',400:'#d4aa60',
+                     500:'#c0a050',600:'#a88838',700:'#856a15' },
+          }
+        }
+      }
+    }
+  </script>
+
+  
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  
+  <div style="height:4px;background:linear-gradient(90deg,#a01040 0%,#be1a4d 40%,#c0a050 100%)"></div>
+
+  
+  <header class="bg-brand-900 border-b border-brand-800">
+    <div class="max-w-screen-xl mx-auto px-5 py-3 flex items-center gap-3">
+      <div class="w-8 h-8 rounded bg-white/10 flex items-center justify-center flex-shrink-0">
+        <i class="ti ti-building-government text-white text-base"></i>
+      </div>
+      <div class="leading-tight">
+        <p class="text-white text-xs font-semibold tracking-wide uppercase">Gobierno del Estado de Tabasco</p>
+        <p class="text-brand-300 text-xs">Secretaría de Turismo y Desarrollo Económico</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ Brand bar ═══════════════════════════════════════════════ -->
+  <div class="bg-brand-800 border-b border-brand-700">
+    <div class="max-w-screen-xl mx-auto px-5 py-4 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <img src="assets/images/LOGOH-TURISMO.png" alt="OVIE · Turismo Tabasco" class="h-10 object-contain flex-shrink-0" />
+        <div>
+          <h1 class="text-white text-xl font-bold tracking-tight leading-none">OVIE</h1>
+          <p class="text-brand-300 text-xs mt-0.5">Observatorio de Información Económica · Tabasco</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="hidden sm:flex items-center gap-1.5 bg-white/10 text-brand-200 text-xs font-medium px-2.5 py-1.5 rounded-lg">
+          <i class="ti ti-calendar text-xs"></i> Datos: 2025 · INEGI / SETUDE
+        </span>
+        <button class="hidden sm:flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-medium px-2.5 py-1.5 rounded-lg transition-colors">
+          <i class="ti ti-question-mark text-xs"></i> Ayuda
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ Hero Section ═══════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <img src="assets/images/hero.png" alt="Panorámica de Tabasco" class="hero-image" />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="max-w-screen-xl mx-auto px-5 h-full flex flex-col justify-center">
+        <h1 class="hero-title">OVIE</h1>
+        <p class="hero-subtitle">Observatorio de Información Económica de Tabasco</p>
+        <p class="hero-description">Explora, visualiza y compara datos económicos, sociodemográficos y turísticos del estado</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ Main ════════════════════════════════════════════════════ -->
+  <main class="max-w-screen-xl mx-auto px-5 py-8">
+
+    <!-- ── Tab navigation ── -->
+    <nav class="flex flex-wrap gap-2 mb-7" id="main-nav">
+      <button class="nav-tab active" onclick="switchTab('socio',this)">
+        <i class="ti ti-users"></i>Sociodemográfico
+      </button>
+      <button class="nav-tab" onclick="switchTab('eco',this)">
+        <i class="ti ti-chart-bar"></i>Análisis económico
+      </button>
+      <button class="nav-tab" onclick="switchTab('prov',this)">
+        <i class="ti ti-building-store"></i>Proveedores
+      </button>
+      <button class="nav-tab" onclick="switchTab('comp',this)">
+        <i class="ti ti-arrows-diff"></i>Comparar áreas
+      </button>
+      <!-- <button class="nav-tab" onclick="switchTab('calc',this)">
+        <i class="ti ti-calculator"></i>Calculadora
+      </button> -->
+      <button class="nav-tab" onclick="switchTab('tur',this)">
+        <i class="ti ti-map-pin"></i>Turismo
+      </button>
+    </nav>
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 1 · SOCIODEMOGRÁFICO
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="tab-socio" class="tab-content active">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#e1f5ee;color:#0f6e56">
+          <i class="ti ti-users"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Análisis sociodemográfico</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            22 indicadores en 5 bloques temáticos. Provee el contexto poblacional necesario para interpretar la dinámica económica y turística de Tabasco.
+          </p>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card k-teal">
+          <p class="kpi-label">Población total</p>
+          <p class="kpi-value">2,402,598</p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.2% vs 2015</p>
+          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+        </div>
+        <div class="kpi-card k-blue">
+          <p class="kpi-label">Edad mediana</p>
+          <p class="kpi-value">28.3 <span style="font-size:1rem;font-weight:400">años</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.1 vs 2015</p>
+          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+        </div>
+        <div class="kpi-card k-amber">
+          <p class="kpi-label">Densidad pob.</p>
+          <p class="kpi-value">38.7 <span style="font-size:1rem;font-weight:400">hab/km²</span></p>
+          <p class="kpi-trend flat"><i class="ti ti-minus text-xs"></i>Sin cambio significativo</p>
+          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+        </div>
+        <div class="kpi-card k-indigo">
+          <p class="kpi-label">Número de hogares</p>
+          <p class="kpi-value">710,245</p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+3.4% vs 2018</p>
+          <p class="kpi-sub">ENIGH 2022</p>
+        </div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="chart-grid mb-5">
+        <div class="chart-card">
+          <p class="chart-title">Pirámide poblacional · Tabasco 2020</p>
+          <div class="chart-wrap" style="height:300px">
+            <canvas id="chart-pyramid"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <p class="chart-title">Distribución por sexo</p>
+          <div class="chart-wrap" style="height:260px">
+            <canvas id="chart-sex-donut"></canvas>
+          </div>
+          <p class="text-center text-xs text-gray-400 mt-2">Hombres 49.1% · Mujeres 50.9%</p>
+        </div>
+      </div>
+
+      <!-- Theme blocks -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-2">Bloque 1 · Tamaño y crecimiento</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Población total</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Tasa de crecimiento</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Densidad poblacional</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-2">Bloque 2 · Estructura etaria</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Distribución por edad</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Edad mediana</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">% adultos mayores</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Pob. &lt;15 / &gt;15 años</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Rel. hombres-mujeres</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-2">Bloque 3 · Salud y natalidad</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Tasa de fecundidad</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Nacimientos registrados</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Mortalidad general</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Mortalidad infantil</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Defunciones por causa</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-2">Bloque 4 · Movilidad poblacional</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Pob. residente 2020 que vivía en otro municipio/estado en 2015</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Causa de la migración</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Razón de dependencia</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-red-800 mb-2">Bloque 5 · Hogares y bienestar</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Nº de hogares</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Tamaño promedio</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Tipo de hogar</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Nivel educativo</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Acceso a salud</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Condiciones de vivienda</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Periodicity legend -->
+      <div class="flex flex-wrap items-center gap-2 mb-4">
+        <span class="text-xs text-gray-500 font-medium">Periodicidad:</span>
+        <span class="badge badge-anual">Anual</span>
+        <span class="badge badge-bienal">Bienal</span>
+        <span class="badge badge-quin">Quinquenal</span>
+        <span class="badge badge-decenal">Decenal</span>
+      </div>
+
+      <!-- Indicators table -->
+      <div class="data-table-wrap overflow-x-auto">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width:28%">Indicador</th>
+              <th style="width:20%">Periodicidad / Fuente</th>
+              <th>Justificación</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="td-name">Población total</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Denominador base para tasas, porcentajes y densidades; escala del territorio.</td></tr>
+            <tr><td class="td-name">Tasa de crecimiento</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Refleja la dinámica demográfica; clave para proyecciones de infraestructura y servicios.</td></tr>
+            <tr><td class="td-name">Densidad de población</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Distingue zonas urbanas y rurales; evalúa potencial de mercado y presión sobre servicios públicos.</td></tr>
+            <tr><td class="td-name">Distribución por edad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Permite construir la pirámide poblacional; revela si la población es joven, madura o envejecida.</td></tr>
+            <tr><td class="td-name">Edad mediana</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Resume la estructura etaria en un solo número; facilita comparaciones entre municipios.</td></tr>
+            <tr><td class="td-name">% adultos mayores</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica presión sobre servicios de salud y pensiones; señal de envejecimiento poblacional.</td></tr>
+            <tr><td class="td-name">Pob. &lt;15 y &gt;15 años</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Mide el peso de los grupos dependientes frente a la población en edad productiva.</td></tr>
+            <tr><td class="td-name">Relación hombres-mujeres</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Detecta desbalances de género que pueden indicar patrones migratorios o de mortalidad diferencial.</td></tr>
+            <tr><td class="td-name">Tasa de fecundidad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENADID</span></td><td class="td-just">Proyecta el crecimiento natural; anticipa demanda futura de servicios materno-infantiles.</td></tr>
+            <tr><td class="td-name">Nacimientos registrados</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Cuantifica las incorporaciones anuales a la población; insumo para proyecciones de corto plazo.</td></tr>
+            <tr><td class="td-name">Mortalidad general</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Mide la salida de población por deceso; complementa el análisis de crecimiento natural.</td></tr>
+            <tr><td class="td-name">Mortalidad infantil</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Indicador sensible de la calidad de los servicios de salud y del nivel de desarrollo social.</td></tr>
+            <tr><td class="td-name">Defunciones por causa</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Revela los principales riesgos de salud pública; orienta políticas de prevención y gasto sanitario.</td></tr>
+            <tr><td class="td-name">Pob. residente en 2020 que vivía en otro municipio/estado en 2015</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Solo el Censo capta este nivel de detalle; mide si Tabasco atrae o expulsa población.</td></tr>
+            <tr><td class="td-name">Causa de la migración</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Explica el porqué del desplazamiento (trabajo, familia, inseguridad); apoya diagnósticos de política pública.</td></tr>
+            <tr><td class="td-name">Razón de dependencia</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica cuántas personas dependen de cada habitante en edad productiva; refleja la capacidad de sostenimiento del territorio.</td></tr>
+            <tr><td class="td-name">Nº de hogares</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Base para estimar demanda de vivienda, servicios domésticos y bienes de consumo durable.</td></tr>
+            <tr><td class="td-name">Tamaño promedio del hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja cambios en la estructura familiar; influye en la demanda de vivienda y consumo per cápita.</td></tr>
+            <tr><td class="td-name">Tipo de hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Distingue hogares nucleares, ampliados y unipersonales; señal de transformaciones sociodemográficas.</td></tr>
+            <tr><td class="td-name">Nivel educativo</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Calidad del capital humano disponible; factor clave para atraer inversión y medir competitividad territorial.</td></tr>
+            <tr><td class="td-name">Acceso a servicios de salud</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Mide la cobertura institucional; identifica brechas de atención y vulnerabilidad social.</td></tr>
+            <tr><td class="td-name">Condiciones de vivienda</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja el nivel socioeconómico y la capacidad de consumo; indicador de rezago o bienestar territorial.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /tab-socio -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 2 · ANÁLISIS ECONÓMICO
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="tab-eco" class="tab-content">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#eeedfe;color:#4f46e5">
+          <i class="ti ti-chart-bar"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Análisis económico</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Indicadores de desempeño económico estructural y de alta frecuencia: PIBE, ITAEE, IMAIE y estructura del mercado laboral.
+          </p>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card k-blue">
+          <p class="kpi-label">PIBE Tabasco</p>
+          <p class="kpi-value">$249.7 <span style="font-size:1rem;font-weight:400">mmdp</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.8% real 2022</p>
+          <p class="kpi-sub">INEGI · Cuentas Nacionales</p>
+        </div>
+        <div class="kpi-card k-teal">
+          <p class="kpi-label">ITAEE var. anual</p>
+          <p class="kpi-value">+2.4 <span style="font-size:1rem;font-weight:400">pp</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>Tendencia positiva</p>
+          <p class="kpi-sub">INEGI · Q4 2023</p>
+        </div>
+        <div class="kpi-card k-amber">
+          <p class="kpi-label">Tasa desocupación</p>
+          <p class="kpi-value">3.2 <span style="font-size:1rem;font-weight:400">%</span></p>
+          <p class="kpi-trend down"><i class="ti ti-arrow-down-right text-xs"></i>−0.4 pp vs 2022</p>
+          <p class="kpi-sub">ENOE · INEGI</p>
+        </div>
+        <div class="kpi-card k-red">
+          <p class="kpi-label">Informalidad laboral</p>
+          <p class="kpi-value">56.4 <span style="font-size:1rem;font-weight:400">%</span></p>
+          <p class="kpi-trend down"><i class="ti ti-arrow-down-right text-xs"></i>−1.2 pp vs 2021</p>
+          <p class="kpi-sub">ENOE · INEGI</p>
+        </div>
+      </div>
+
+      <!-- Charts row -->
+      <div class="chart-grid mb-5">
+        <div class="chart-card">
+          <p class="chart-title">ITAEE por sector · Tabasco (base 2013 = 100)</p>
+          <div class="chart-wrap" style="height:280px">
+            <canvas id="chart-itaee"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <p class="chart-title">PIBE por actividad económica · 2022</p>
+          <div class="chart-wrap" style="height:260px">
+            <canvas id="chart-pibe"></canvas>
+          </div>
+          <p class="text-center text-xs text-gray-400 mt-2">Minería / Petróleo: 42% del PIBE estatal</p>
+        </div>
+      </div>
+
+      <!-- Theme blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-2">Mercado laboral</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">PEA / PNEA</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Población ocupada</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Posición en la ocupación</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Sector de ocupación</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Nivel de ingresos</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Duración de jornadas</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Tasa de informalidad</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Desocupados por instrucción</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-2">PIB estatal (PIBE)</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">PIBE total</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Aportación por sector</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">% por actividad</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Valor agregado bruto</span>
+          </div>
+        </div>
+        <div class="card p-4">
+          <p class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-2">Indicadores alta frecuencia</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · total</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · primario</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · secundario</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · terciario</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · energía</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">IMAIE mensual</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicators table -->
+      <div class="data-table-wrap overflow-x-auto">
+        <table class="data-table">
+          <thead><tr><th style="width:26%">Indicador</th><th style="width:20%">Periodicidad / Fuente</th><th>Justificación</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">PEA</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Base productiva del territorio; refleja el potencial real de crecimiento económico y oferta laboral.</td></tr>
+            <tr><td class="td-name">PNEA</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Complemento de la PEA; identifica el volumen de personas fuera del mercado laboral.</td></tr>
+            <tr><td class="td-name">Población ocupada</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Mide la absorción efectiva de mano de obra; indicador directo del dinamismo económico.</td></tr>
+            <tr><td class="td-name">Posición en la ocupación</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Distingue empleados, trabajadores por cuenta propia y empleadores; revela la estructura del empleo.</td></tr>
+            <tr><td class="td-name">Sector de ocupación</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Identifica en qué sectores se concentra el empleo; apoya el análisis de la especialización económica.</td></tr>
+            <tr><td class="td-name">Nivel de ingresos</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Refleja la calidad del empleo y el poder adquisitivo; insumo para estimar potencial de consumo.</td></tr>
+            <tr><td class="td-name">Duración de jornadas</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Indica si predomina el empleo de tiempo completo o parcial; señal de precariedad laboral.</td></tr>
+            <tr><td class="td-name">Tasa de informalidad</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Refleja la calidad estructural del empleo; alta informalidad implica menor recaudación y productividad.</td></tr>
+            <tr><td class="td-name">Pob. desocupada por instrucción</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Cruza desempleo con nivel educativo; detecta si la oferta de talento está alineada con el mercado.</td></tr>
+            <tr><td class="td-name">PIBE total</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Medida más completa del desempeño económico estatal; compara la participación en el PIB nacional.</td></tr>
+            <tr><td class="td-name">Aportación por sector</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Muestra qué actividades sostienen el crecimiento; clave para políticas de diversificación productiva.</td></tr>
+            <tr><td class="td-name">% por actividad económica</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Permite comparar la composición del PIBE a lo largo del tiempo; evidencia cambios estructurales.</td></tr>
+            <tr><td class="td-name">Valor agregado bruto</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Revela la contribución real de cada sector descontando insumos intermedios.</td></tr>
+            <tr><td class="td-name">ITAEE · total</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Anticipa tendencias del PIB con mayor oportunidad; monitorea el ciclo económico en tiempo casi real.</td></tr>
+            <tr><td class="td-name">ITAEE · sector primario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Sigue el desempeño de agricultura, ganadería y pesca; relevante por el peso del sector agropecuario.</td></tr>
+            <tr><td class="td-name">ITAEE · sector secundario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Monitorea industria y manufactura; refleja el impacto de la actividad petrolera y petroquímica.</td></tr>
+            <tr><td class="td-name">ITAEE · sector terciario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Sigue el comportamiento de comercio y servicios; sector con mayor diversidad y generación de empleo.</td></tr>
+            <tr><td class="td-name">ITAEE · energía</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Indicador estratégico para Tabasco dada su dependencia histórica del sector energético.</td></tr>
+            <tr><td class="td-name">IMAIE mensual</td><td><span class="badge badge-mensual">Mensual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Máxima frecuencia disponible para actividad industrial; detecta tendencias de corto plazo en manufactura, minería y construcción.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /tab-eco -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 3 · PROVEEDORES
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="tab-prov" class="tab-content">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#fef3c7;color:#92400e">
+          <i class="ti ti-building-store"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Búsqueda de proveedores y competidores</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Establecimientos económicos del DENUE georreferenciados. Localiza proveedores o competidores por actividad, proximidad y tamaño.
+          </p>
+        </div>
+      </div>
+
+      <!-- Search bar -->
+      <div class="search-bar">
+        <div class="search-field flex-grow">
+          <label class="form-label">Actividad o palabra clave</label>
+          <div class="relative">
+            <i class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+            <input type="text" class="form-control pl-8" placeholder="Ej: restaurante, software, cacao…" />
+          </div>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Sector SCIAN</label>
+          <select class="form-control">
+            <option>Todos los sectores</option>
+            <option>11 – Agropecuario</option>
+            <option>31-33 – Manufactura</option>
+            <option>43-46 – Comercio</option>
+            <option>48-49 – Transporte</option>
+            <option>52 – Servicios financieros</option>
+            <option>72 – Alojamiento / restaurantes</option>
+          </select>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Municipio</label>
+          <select class="form-control">
+            <option>Todo Tabasco</option>
+            <option>Villahermosa</option>
+            <option>Centro</option>
+            <option>Cárdenas</option>
+            <option>Paraíso</option>
+            <option>Comalcalco</option>
+            <option>Macuspana</option>
+          </select>
+        </div>
+        <div class="search-field search-field-sm">
+          <label class="form-label">Tamaño</label>
+          <select class="form-control">
+            <option>Cualquier tamaño</option>
+            <option>Micro (0–10)</option>
+            <option>Pequeña (11–50)</option>
+            <option>Mediana (51–250)</option>
+            <option>Grande (251+)</option>
+          </select>
+        </div>
+        <div style="padding-top:20px">
+          <button class="btn btn-primary" onclick="initMapProveedores()">
+            <i class="ti ti-search"></i> Buscar
+          </button>
+        </div>
+      </div>
+
+      <!-- Map + Results split -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-5">
+        <div class="lg:col-span-2 map-outer" style="min-height:360px">
+          <div class="map-toolbar">
+            <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2">Capas</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#1e5f8c"></span>Comercio</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#d97706"></span>Manufactura</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#1d9e75"></span>Servicios</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#059669"></span>Agro</span>
+            <span class="layer-toggle active"><span class="layer-dot" style="background:#7c3aed"></span>Turismo</span>
+          </div>
+          <div id="map-proveedores" style="height:320px"></div>
+        </div>
+
+        <div class="card overflow-hidden" style="min-height:320px">
+          <div class="px-4 py-3 border-b border-gray-100 bg-gray-50 flex items-center justify-between">
+            <p class="text-xs font-semibold text-gray-600">Resultados <span class="text-gray-400 font-normal">— 10 encontrados</span></p>
+            <button class="btn btn-sm btn-outline"><i class="ti ti-download text-xs"></i> CSV</button>
+          </div>
+          <div class="overflow-y-auto" style="max-height:320px">
+            <div class="result-item">
+              <p class="result-item-name">Comercializadora del Sureste SA</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Centro, Villahermosa</p>
+              <span class="result-tag" style="background:#dbeafe;color:#1e40af">Comercio</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Mediana · 51–100 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Industrias Tabasqueñas SA de CV</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Tabasco 2000</p>
+              <span class="result-tag" style="background:#fef3c7;color:#92400e">Manufactura</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Grande · 251+ emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Servicios Profesionales SRL</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Atasta</p>
+              <span class="result-tag" style="background:#dcfce7;color:#166534">Servicios</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Micro · 1–5 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Agroindustria del Trópico</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Nacajuca</p>
+              <span class="result-tag" style="background:#dcfce7;color:#166534">Agroindustria</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 6–10 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Hotel Gran Tabasco</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Paseo Tabasco</p>
+              <span class="result-tag" style="background:#ede9fe;color:#5b21b6">Turismo</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Mediana · 51–100 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Constructora Regional SA de CV</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Petrolera</p>
+              <span class="result-tag" style="background:#fee2e2;color:#991b1b">Construcción</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 11–30 emp.</span>
+            </div>
+            <div class="result-item">
+              <p class="result-item-name">Distribuidora Olmeca</p>
+              <p class="result-item-meta"><i class="ti ti-map-pin text-xs mr-1"></i>Col. Carrizal</p>
+              <span class="result-tag" style="background:#dbeafe;color:#1e40af">Comercio</span>
+              <span class="result-tag ml-1" style="background:#f3f4f6;color:#374151">Pequeña · 11–30 emp.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DENUE table -->
+      <div class="data-table-wrap overflow-x-auto">
+        <table class="data-table">
+          <thead><tr><th style="width:35%">Indicador DENUE</th><th>Utilidad para el análisis</th></tr></thead>
+          <tbody>
+            <tr><td class="td-name">Unidades económicas por estrato</td><td class="td-just">Revela la composición del tejido empresarial: micro, pequeñas, medianas y grandes empresas.</td></tr>
+            <tr><td class="td-name">Unidades por municipio</td><td class="td-just">Identifica los polos de concentración económica y actividad empresarial dentro del estado.</td></tr>
+            <tr><td class="td-name">Actividades por clasificación SCIAN</td><td class="td-just">Muestra la especialización económica del territorio; permite detectar ventajas comparativas y clústeres productivos.</td></tr>
+            <tr><td class="td-name">Tamaño de unidad económica</td><td class="td-just">Clasifica los establecimientos por personal ocupado; refleja la capacidad de generación de empleo formal.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- /tab-prov -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 4 · COMPARAR ÁREAS
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="tab-comp" class="tab-content">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#fce7f3;color:#be185d">
+          <i class="ti ti-arrows-diff"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Comparar áreas</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Compara dos municipios o zonas usando indicadores sociodemográficos, económicos y de bienestar lado a lado.
+          </p>
+        </div>
+      </div>
+
+      <!-- Area selectors -->
+      <div class="card p-5 mb-4">
+        <div class="comp-selectors mb-4">
+          <div>
+            <label class="form-label comp-header-a">Área A</label>
+            <select id="comp-a" class="form-control">
+              <option>Villahermosa</option>
+              <option>Centro</option>
+              <option>Cárdenas</option>
+              <option>Paraíso</option>
+              <option>Comalcalco</option>
+              <option>Nacajuca</option>
+              <option>Cunduacán</option>
+              <option>Macuspana</option>
+              <option>Teapa</option>
+              <option>Balancán</option>
+            </select>
+          </div>
+          <div class="flex justify-center" style="padding-top:22px">
+            <div class="vs-badge">VS</div>
+          </div>
+          <div>
+            <label class="form-label comp-header-b">Área B</label>
+            <select id="comp-b" class="form-control">
+              <option>Centro</option>
+              <option>Villahermosa</option>
+              <option>Cárdenas</option>
+              <option>Paraíso</option>
+              <option>Comalcalco</option>
+              <option>Nacajuca</option>
+              <option>Cunduacán</option>
+              <option>Macuspana</option>
+              <option>Teapa</option>
+              <option>Balancán</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button class="btn btn-primary" onclick="comparar()">
+            <i class="ti ti-arrows-diff"></i> Comparar
+          </button>
+          <button class="btn btn-outline" onclick="document.getElementById('comp-table').style.display='none'">
+            <i class="ti ti-x"></i> Limpiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Comparison results (initially hidden) -->
+      <div id="comp-table" style="display:none" class="mb-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 data-table-wrap overflow-x-auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width:32%">Indicador</th>
+                  <th id="comp-header-a" class="comp-header-a" style="width:24%">Área A</th>
+                  <th id="comp-header-b" class="comp-header-b" style="width:24%">Área B</th>
+                  <th>Diferencia</th>
+                </tr>
+              </thead>
+              <tbody id="comp-tbody"></tbody>
+            </table>
+            <p class="text-xs text-gray-400 px-4 py-2">* Informalidad: menor valor = mejor desempeño.</p>
+          </div>
+          <div class="chart-card">
+            <p class="chart-title">Comparativa normalizada (0–100)</p>
+            <div class="chart-wrap" style="height:280px">
+              <canvas id="chart-radar"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features panels -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-pink-700 mb-4">Elementos de la interfaz</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-map-2 text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selector de área A y B</p><p class="text-xs text-gray-500 mt-0.5">Menú con municipios y áreas guardadas por el usuario.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-table text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Panel de indicadores</p><p class="text-xs text-gray-500 mt-0.5">Tabla con valores lado a lado, organizados por categoría.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-chart-radar text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Gráfica radar comparativa</p><p class="text-xs text-gray-500 mt-0.5">Perfil normalizado que facilita interpretar diferencias territoriales.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-pink-700 mb-4">Acciones disponibles</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-device-floppy text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Guardar comparación</p><p class="text-xs text-gray-500 mt-0.5">Almacena la comparación para revisarla en otra sesión.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-file-export text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Exportar comparación</p><p class="text-xs text-gray-500 mt-0.5">Descarga los datos en CSV o Excel.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-sparkles text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Resumen automático</p><p class="text-xs text-gray-500 mt-0.5">Destaca las principales ventajas de cada zona comparada.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="info-note">
+        <strong>Casos de uso:</strong> Elegir la ubicación óptima para un negocio &nbsp;·&nbsp; Evaluar mercados potenciales &nbsp;·&nbsp; Conocer características distintivas de territorios antes de invertir.
+      </div>
+    </div><!-- /tab-comp -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 5 · CALCULADORA (COMENTADO)
+    ═══════════════════════════════════════════════════════════════ -->
+    <!-- <div id="tab-calc" class="tab-content">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#dcfce7;color:#15803d">
+          <i class="ti ti-calculator"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Calculadora territorial</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Crea indicadores personalizados combinando variables sociodemográficas, económicas y turísticas mediante operaciones matemáticas básicas.
+          </p>
+        </div>
+      </div>
+
+      <div class="card p-6 mb-5">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-5">Constructor de fórmula</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+          <div class="lg:col-span-1">
+            <label for="calc-area" class="form-label">Área</label>
+            <select id="calc-area" class="form-control">
+              <option>Todo Tabasco</option>
+              <option>Villahermosa</option>
+              <option>Centro</option>
+              <option>Cárdenas</option>
+              <option>Comalcalco</option>
+              <option>Macuspana</option>
+            </select>
+          </div>
+          <div class="lg:col-span-2">
+            <label for="calc-var1" class="form-label">Variable 1</label>
+            <select id="calc-var1" class="form-control">
+              <option value="pob_total">Población total</option>
+              <option value="pob_pea">PEA</option>
+              <option value="pob_ocupada">Población ocupada</option>
+              <option value="num_hogares">Nº de hogares</option>
+              <option value="pib_mmp">PIBE (millones de pesos)</option>
+              <option value="pib_pc">PIB per cápita (pesos)</option>
+              <option value="tasa_informal">Tasa de informalidad (%)</option>
+              <option value="mortalidad">Mortalidad general</option>
+              <option value="fecundidad">Tasa global de fecundidad</option>
+              <option value="densidad">Densidad (hab/km²)</option>
+              <option value="edad_mediana">Edad mediana</option>
+            </select>
+          </div>
+          <div class="lg:col-span-1 text-center">
+            <label for="calc-op" class="form-label">Operador</label>
+            <select id="calc-op" class="form-control text-center font-bold text-lg">
+              <option value="÷">÷</option>
+              <option value="×">×</option>
+              <option value="+">+</option>
+              <option value="-">−</option>
+            </select>
+          </div>
+          <div class="lg:col-span-2">
+            <label for="calc-var2" class="form-label">Variable 2</label>
+            <select id="calc-var2" class="form-control">
+              <option value="num_hogares">Nº de hogares</option>
+              <option value="pob_total">Población total</option>
+              <option value="pob_pea">PEA</option>
+              <option value="pob_ocupada">Población ocupada</option>
+              <option value="pib_mmp">PIBE (millones de pesos)</option>
+              <option value="pib_pc">PIB per cápita (pesos)</option>
+              <option value="tasa_informal">Tasa de informalidad (%)</option>
+              <option value="mortalidad">Mortalidad general</option>
+              <option value="fecundidad">Tasa global de fecundidad</option>
+              <option value="densidad">Densidad (hab/km²)</option>
+              <option value="edad_mediana">Edad mediana</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-5 flex gap-3">
+          <button class="btn btn-teal" onclick="calcular()">
+            <i class="ti ti-calculator"></i> Calcular indicador
+          </button>
+          <button class="btn btn-outline" onclick="document.getElementById('calc-result').style.display='none'">
+            <i class="ti ti-refresh"></i> Limpiar
+          </button>
+        </div>
+
+        <div id="calc-result" class="calc-result-card" style="display:none">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Resultado</p>
+          <p id="calc-result-value" class="calc-result-value">—</p>
+          <p id="calc-result-formula" class="calc-result-label"></p>
+          <p id="calc-result-area" class="text-xs text-gray-400 mt-1"></p>
+          <div class="flex gap-2 justify-center mt-4">
+            <button class="btn btn-sm btn-outline"><i class="ti ti-bookmark text-xs"></i> Guardar fórmula</button>
+            <button class="btn btn-sm btn-outline"><i class="ti ti-download text-xs"></i> Exportar CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-green-700 mb-4">Constructor de fórmulas</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-map-pin text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selector de área</p><p class="text-xs text-gray-500 mt-0.5">Área previamente guardada sobre la cual se realizará el cálculo.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-variable text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Variable 1 y Variable 2</p><p class="text-xs text-gray-500 mt-0.5">Catálogo por tema: sociodemográficas, económicas, turísticas.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-math-function text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Operador matemático</p><p class="text-xs text-gray-500 mt-0.5">Suma, resta, multiplicación y división entre variables.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-green-700 mb-4">Resultados y gestión</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-calculator text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Resultado calculado</p><p class="text-xs text-gray-500 mt-0.5">Valor del indicador personalizado para el área seleccionada.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-bookmark text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Guardar fórmula</p><p class="text-xs text-gray-500 mt-0.5">Nombrar y almacenar la fórmula para usos posteriores.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-download text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Exportar resultado</p><p class="text-xs text-gray-500 mt-0.5">Descarga en formato CSV.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Indicadores calculables de ejemplo</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Productividad laboral</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Densidad de competencia</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Potencial de consumo</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Ingreso per cápita estimado</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Ratio empleo / población</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Dependencia económica</span>
+        </div>
+      </div>
+    </div> --><!-- /tab-calc -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB 6 · TURISMO
+    ═══════════════════════════════════════════════════════════════ -->
+    <div id="tab-tur" class="tab-content">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#e0f2fe;color:#0369a1">
+          <i class="ti ti-map-pin"></i>
+        </div>
+        <div>
+          <h2 class="text-base font-semibold text-gray-900">Información turística · Tabasco</h2>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Mapa interactivo por capas que integra la oferta turística del estado, combinando datos de la SETUDE con estadísticas del INEGI para apoyar la inversión y planeación turística.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tourism KPI cards -->
+      <div class="kpi-grid mb-5">
+        <div class="kpi-card k-blue">
+          <p class="kpi-label">Visitantes / año</p>
+          <p class="kpi-value">1.2 <span style="font-size:1rem;font-weight:400">M</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+8.4% vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+        <div class="kpi-card k-teal">
+          <p class="kpi-label">Hoteles registrados</p>
+          <p class="kpi-value">189</p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+6 nuevos en 2023</p>
+          <p class="kpi-sub">INEGI · DENUE</p>
+        </div>
+        <div class="kpi-card k-amber">
+          <p class="kpi-label">Ocupación hotelera</p>
+          <p class="kpi-value">54.6 <span style="font-size:1rem;font-weight:400">%</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+3.1 pp vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+        <div class="kpi-card k-emerald">
+          <p class="kpi-label">Derrama económica</p>
+          <p class="kpi-value">$2.8 <span style="font-size:1rem;font-weight:400">mmdp</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+12.3% vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-outer mb-5">
+        <div class="map-toolbar">
+          <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2">Capas</span>
+          <button class="layer-toggle active" onclick="toggleLayer(this,'rutas')">
+            <span class="layer-dot" style="background:#1e5f8c"></span>Rutas turísticas
+          </button>
+          <button class="layer-toggle active" onclick="toggleLayer(this,'pueblos')">
+            <span class="layer-dot" style="background:#fbbf24"></span>Pueblos Mágicos
+          </button>
+          <button class="layer-toggle active" onclick="toggleLayer(this,'hoteles')">
+            <span class="layer-dot" style="background:#7c3aed"></span>Hoteles
+          </button>
+          <button class="layer-toggle active" onclick="toggleLayer(this,'museos')">
+            <span class="layer-dot" style="background:#4f46e5"></span>Museos / Cultura
+          </button>
+          <button class="layer-toggle active" onclick="toggleLayer(this,'eco')">
+            <span class="layer-dot" style="background:#059669"></span>Ecoturismo
+          </button>
+        </div>
+        <div id="map-turismo" style="height:420px"></div>
+      </div>
+
+      <!-- Route cards -->
+      <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Rutas turísticas oficiales · SETUDE</p>
+      <div class="routes-grid">
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta1_Villahermosa.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#7fb9d8">Ruta 1</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Gran Ruta Villahermosa</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Cultura, arqueología olmeca y vida urbana en la capital del estado. Zona CICOM y Parque Museo La Venta.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Museos</span>
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Gastronomía</span>
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta2_PantanosCentla.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#6ee7b7">Ruta 2</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Pantanos de Centla</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Reserva de la biósfera, manglares, flora y fauna acuática única. Avistamiento de manatíes y lagartos.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Ecoturismo</span>
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Avifauna</span>
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Kayak</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta3_BijYokotan.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#fcd34d">Ruta 3</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Bij Yokot'an</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Cultura chontal viva: artesanías, danzas prehispánicas y gastronomía ancestral en los municipios del norte.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Cultura</span>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Artesanías</span>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Gastronomía</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta4_AventuraOlmecaZoque.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#c4b5fd">Ruta 4</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Aventura Olmeca-Zoque</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Grutas de Coconá, aguas termales de Teapa y zonas arqueológicas del sur del estado.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Grutas</span>
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Termal</span>
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta5_RiosMayas.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#bae6fd">Ruta 5</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Ríos Mayas</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">El río Usumacinta como frontera viva con Guatemala. Selva lacandona, sitios mayas y ecoaventura.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Ríos</span>
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Selva</span>
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Maya</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('assets/images/rutas_turisticas/Ruta6_CacaoChocolate.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#fde68a">Ruta 6</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Del Cacao al Chocolate</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Comalcalco, tierra del cacao más antiguo de México. Zona arqueológica, haciendas cacaoteras y chocolaterías artesanales.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Cacao</span>
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Gastronomía</span>
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Map features panels -->
+      <hr class="divider">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-4">Funcionalidades interactivas</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-layers-subtract text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selección de capas</p><p class="text-xs text-gray-500 mt-0.5">Panel con casillas para activar / desactivar cada tipo de punto.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-zoom-in text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Zoom contextual</p><p class="text-xs text-gray-500 mt-0.5">Al seleccionar ruta o pueblo mágico, el mapa ajusta el zoom.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-circle text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Radio de influencia</p><p class="text-xs text-gray-500 mt-0.5">Dibuja un radio y muestra todos los servicios turísticos cercanos.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-download text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Descarga de datos</p><p class="text-xs text-gray-500 mt-0.5">Exporta lo visible en el mapa como CSV o GeoJSON.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-4">Filtros del panel lateral</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Tipo de establecimiento</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Rango de precios</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Categoría de hotel</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Villahermosa</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Pantanos de Centla</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Bij Yokot'an</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Aventura Olmeca-Zoque</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Ríos Mayas</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Del Cacao al Chocolate</span>
+          </div>
+        </div>
+      </div>
+    </div><!-- /tab-tur -->
+
+  </main>
+
+  <!-- ══ Footer ═════════════════════════════════════════════════ -->
+  <footer class="mt-12 border-t border-gray-200 bg-white">
+    <div class="max-w-screen-xl mx-auto px-5 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p class="text-xs text-gray-400">© 2025 · Gobierno del Estado de Tabasco · Secretaría de Turismo y Desarrollo Económico</p>
+      <div class="flex items-center gap-4 text-xs text-gray-400">
+        <span>Fuentes: INEGI · SETUDE · Estadísticas Vitales · DENUE</span>
+        <span class="text-gray-300">|</span>
+        <span>v1.0.0 · Maquetado</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══ Scripts ═══════════════════════════════════════════════ -->
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- App logic -->
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/charts.js"></script>
+  <script src="assets/js/map.js"></script>
+
+  <!-- marliz was here coding. -->
+</body>
+</html>
+
+
