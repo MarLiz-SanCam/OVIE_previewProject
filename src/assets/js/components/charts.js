@@ -2,6 +2,8 @@
 
 'use strict';
 
+// Radar del comparador (página Comparar, inactiva). Las gráficas de indicadores están en graficas.js.
+
 import Chart from 'chart.js/auto';
 
 const C = {
@@ -26,164 +28,8 @@ Chart.defaults.font.size   = 11;
 
 window.chartInstances = {};
 
-function initSocioCharts() {
-  initPyramidChart();
-  initSexDonut();
-}
-
-function initEcoCharts() {
-  initITAEEChart();
-  initPIBEDonut();
-}
-
 function initCompCharts() {
   initRadarChart();
-}
-
-function initPyramidChart() {
-  const ctx = document.getElementById('chart-pyramid');
-  if (!ctx || window.chartInstances.pyramid) return;
-
-  const labels = ['0–4','5–9','10–14','15–19','20–24','25–29','30–34','35–39',
-                  '40–44','45–49','50–54','55–59','60–64','65–69','70–74','75+'];
-
-  const males   = [-84500,-90100,-93200,-87400,-82100,-76500,-69800,-63200,
-                   -55400,-47600,-38900,-30100,-22800,-15900,-10200,-8400];
-  const females = [ 81200, 86700, 89500, 84600, 80300, 75100, 68400, 62100,
-                    54800, 47200, 38500, 30200, 23100, 16500, 11200,10800];
-
-  window.chartInstances.pyramid = new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels,
-      datasets: [
-        { label: 'Hombres', data: males,   backgroundColor: 'rgba(30,95,140,0.70)',  borderColor: C.blue,  borderWidth: 0, borderRadius: 2 },
-        { label: 'Mujeres', data: females, backgroundColor: 'rgba(219,39,119,0.65)', borderColor: C.pink,  borderWidth: 0, borderRadius: 2 },
-      ]
-    },
-    options: {
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 14, font: { size: 11 } } },
-        tooltip: {
-          callbacks: { label: ctx => ' ' + Math.abs(ctx.raw).toLocaleString('es-MX') }
-        }
-      },
-      scales: {
-        x: {
-          ticks: { callback: v => Math.abs(v / 1000) + 'k', font: { size: 10 } },
-          grid: { color: GRID_COLOR }
-        },
-        y: { ticks: { font: { size: 10 } }, grid: { display: false } }
-      }
-    }
-  });
-}
-
-function initSexDonut() {
-  const ctx = document.getElementById('chart-sex-donut');
-  if (!ctx || window.chartInstances.sexDonut) return;
-
-  window.chartInstances.sexDonut = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Hombres', 'Mujeres'],
-      datasets: [{
-        data: [49.1, 50.9],
-        backgroundColor: ['rgba(30,95,140,0.80)', 'rgba(219,39,119,0.75)'],
-        borderColor: ['#fff', '#fff'],
-        borderWidth: 3,
-        hoverOffset: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '65%',
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } },
-        tooltip: { callbacks: { label: ctx => ' ' + ctx.raw + '%' } }
-      }
-    }
-  });
-}
-
-function initITAEEChart() {
-  const ctx = document.getElementById('chart-itaee');
-  if (!ctx || window.chartInstances.itaee) return;
-
-  const labels = ['Q1 2022','Q2 2022','Q3 2022','Q4 2022',
-                  'Q1 2023','Q2 2023','Q3 2023','Q4 2023'];
-
-  const makeDS = (label, data, color) => ({
-    label, data,
-    borderColor: color,
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    pointRadius: 4,
-    pointHoverRadius: 6,
-    tension: 0.3,
-  });
-
-  window.chartInstances.itaee = new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels,
-      datasets: [
-        makeDS('Total',     [98.2,100.1,99.8,101.2,102.5,103.1,104.8,106.2], C.blue),
-        makeDS('Terciario', [101.2,103.4,102.9,104.1,106.2,107.8,109.1,111.4], C.teal),
-        makeDS('Secundario',[96.4,99.2,98.1,100.8,101.9,102.4,103.7,105.1], C.amber),
-        makeDS('Primario',  [95.1,97.3,96.8,98.4,99.2,100.5,101.8,103.1], C.emerald),
-      ]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } }
-      },
-      scales: {
-        x: { grid: { color: GRID_COLOR }, ticks: { font: { size: 10 } } },
-        y: {
-          grid: { color: GRID_COLOR },
-          ticks: { font: { size: 10 } },
-          title: { display: true, text: 'Índice (base 2013=100)', font: { size: 10 }, color: '#9ca3af' }
-        }
-      }
-    }
-  });
-}
-
-function initPIBEDonut() {
-  const ctx = document.getElementById('chart-pibe');
-  if (!ctx || window.chartInstances.pibe) return;
-
-  window.chartInstances.pibe = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Minería / Petróleo','Comercio','Servicios financieros',
-               'Manufactura','Construcción','Agropecuario','Otros servicios'],
-      datasets: [{
-        data: [42, 18, 12, 8, 7, 5, 8],
-        backgroundColor: [C.blue, C.teal, C.violet, C.amber, C.pink, C.emerald, C.gray],
-        borderColor: '#fff',
-        borderWidth: 3,
-        hoverOffset: 6,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      cutout: '60%',
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 10, padding: 10, font: { size: 10 } } },
-        tooltip: { callbacks: { label: ctx => ' ' + ctx.label + ': ' + ctx.raw + '%' } }
-      }
-    }
-  });
 }
 
 let _radarChart = null;
@@ -257,5 +103,5 @@ function updateRadarChart(da, db, lblA, lblB) {
   _radarChart.update();
 }
 
-export { initSocioCharts, initEcoCharts, initCompCharts, updateRadarChart };
+export { initCompCharts, updateRadarChart };
 

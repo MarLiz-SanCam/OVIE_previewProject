@@ -86,6 +86,7 @@
       "lector": "bie-serie", "archivos": [
         "Sociodemografico/Bloque 5 hogares y vivienda/Condiciones de vivienda/Indicadores20260828133451.xls",
         "Sociodemografico/Bloque 5 hogares y vivienda/Condiciones de vivienda/Indicadores20260828133530.xls" ],
+      "opciones": { "nombresPorArchivo": ["Viviendas con agua entubada", "Viviendas con drenaje"] },
       "periodicidad": "quinquenal", "unidad": "Viviendas" },
 
     { "id": "pea", "modulo": "economia", "bloque": 1, "titulo": "PEA",
@@ -99,7 +100,8 @@
     { "id": "poblacion-ocupada", "modulo": "economia", "bloque": 1, "titulo": "Población ocupada",
       "lector": "bie-serie", "archivos": "Analisis economico/Bloque 1 mercado laboral/Poblacion ocupada/Indicadores20260828135745.xls",
       "opciones": { "nombresSerie": ["Población ocupada"] },
-      "periodicidad": "trimestral", "unidad": "Personas", "fuente": "INEGI. Encuesta Nacional de Ocupación y Empleo (ENOE)" },
+      "periodicidad": "trimestral", "unidad": "Personas", "fuente": "INEGI. Encuesta Nacional de Ocupación y Empleo (ENOE)",
+      "nota": "Serie del BIE 6200093950; difiere del total de la consulta de Posición en la ocupación (ENOE)." },
     { "id": "posicion-ocupacion", "modulo": "economia", "bloque": 1, "titulo": "Posición en la ocupación",
       "lector": "inegi-exporta", "archivos": [
         "Analisis economico/Bloque 1 mercado laboral/Posicion en la ocupacion/INEGI_exporta_28_8_2026_14_25_22.xls",
@@ -153,7 +155,7 @@
       "lector": "scn", "archivos": "Analisis economico/Bloque 2 PIB estatal (PIBE)/PIBE, Por sector y VAB/PIBE_75.xlsx",
       "opciones": { "medidas": ["Contribución a la variación del estado en valores constantes"],
                     "conceptos": ["Producto interno bruto", "Actividades primarias", "Actividades secundarias", "Actividades terciarias"] },
-      "periodicidad": "anual", "nota": "Interpretado como contribución de cada gran sector a la variación del PIBE; confirmar." },
+      "periodicidad": "anual", "nota": "Contribución de cada gran sector a la variación anual del PIBE (puntos porcentuales)." },
     { "id": "pibe-estructura", "modulo": "economia", "bloque": 2, "titulo": "% por actividad económica",
       "lector": "scn", "archivos": "Analisis economico/Bloque 2 PIB estatal (PIBE)/PIBE, Por sector y VAB/PIBE_75.xlsx",
       "opciones": { "medidas": ["Estructura porcentual en valores constantes"] },

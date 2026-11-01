@@ -144,6 +144,32 @@
         </div>
       </div>
 
+      <!-- Panorama empresarial: gráficas desde data/proveedores/resumen.json (assets/js/pages/proveedores.js) -->
+      <section id="panorama-denue" class="mb-6">
+        <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3">
+          <h2 class="text-xs font-semibold uppercase tracking-wider text-amber-800">Panorama empresarial · DENUE</h2>
+          <p class="text-xs text-gray-400" id="denue-fuente"></p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <article class="chart-card">
+            <h3 class="chart-title">Negocios por tamaño (personal ocupado)</h3>
+            <div class="chart-wrap" style="height:260px"><canvas id="chart-denue-estrato" role="img" aria-label="Negocios por tamaño"></canvas></div>
+          </article>
+          <article class="chart-card">
+            <h3 class="chart-title">Sectores con más negocios (10 principales)</h3>
+            <div class="chart-wrap" style="height:260px"><canvas id="chart-denue-sector" role="img" aria-label="Sectores con más negocios"></canvas></div>
+          </article>
+          <article class="chart-card">
+            <h3 class="chart-title">Negocios por municipio</h3>
+            <div class="chart-wrap" style="height:260px"><canvas id="chart-denue-municipio" role="img" aria-label="Negocios por municipio"></canvas></div>
+          </article>
+          <article class="chart-card">
+            <h3 class="chart-title">Tamaño de los negocios en los 10 sectores principales</h3>
+            <div class="chart-wrap" style="height:260px"><canvas id="chart-denue-cruce" role="img" aria-label="Tamaño de los negocios por sector"></canvas></div>
+          </article>
+        </div>
+      </section>
+
       <!-- DENUE table -->
       <div class="data-table-wrap overflow-x-auto">
         <table class="data-table">

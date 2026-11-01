@@ -26,7 +26,9 @@ const manifiesto = JSON.parse(fs.readFileSync(new URL('./manifiesto.json', impor
 
 const LECTORES = {
   'tabulado-censal': (archivos, op) => unirSeries(archivos.map(a => leerTabuladoCensal(a, op))),
-  'bie-serie': (archivos, op) => unirSeries(archivos.map(a => leerBieSerie(a, op))),
+  // nombresPorArchivo: cuando el indicador junta varias series del BIE, una por archivo
+  'bie-serie': (archivos, op) => unirSeries(archivos.map((a, k) =>
+    leerBieSerie(a, op.nombresPorArchivo ? { ...op, nombresSerie: [op.nombresPorArchivo[k]] } : op))),
   'inegi-exporta': (archivos, op) => leerInegiExporta(archivos, op),
   'scn': (archivos, op) => unirSeries(archivos.map(a => leerScn(a, op))),
   'censo-tab': (archivos, op) => unirSeries(archivos.map(a => leerCensoTab(a, op))),

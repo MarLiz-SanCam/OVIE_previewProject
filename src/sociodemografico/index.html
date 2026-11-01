@@ -30,60 +30,61 @@
 
       <!-- KPI Cards -->
       <div class="kpi-grid">
-        <div class="kpi-card k-teal">
+        <!-- Valores desde data/ (assets/js/pages/sociodemografico.js) -->
+        <div class="kpi-card k-teal" data-kpi="poblacion-total">
           <p class="kpi-label">Población total</p>
-          <p class="kpi-value">2,402,598</p>
-          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.2% vs 2015</p>
-          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-blue">
+        <div class="kpi-card k-blue" data-kpi="edad-mediana">
           <p class="kpi-label">Edad mediana</p>
-          <p class="kpi-value">28.3 <span style="font-size:1rem;font-weight:400">años</span></p>
-          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.1 vs 2015</p>
-          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-amber">
+        <div class="kpi-card k-amber" data-kpi="densidad-poblacion">
           <p class="kpi-label">Densidad pob.</p>
-          <p class="kpi-value">38.7 <span style="font-size:1rem;font-weight:400">hab/km²</span></p>
-          <p class="kpi-trend flat"><i class="ti ti-minus text-xs"></i>Sin cambio significativo</p>
-          <p class="kpi-sub">Encuesta Intercensal 2020</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-indigo">
+        <div class="kpi-card k-indigo" data-kpi="numero-hogares">
           <p class="kpi-label">Número de hogares</p>
-          <p class="kpi-value">710,245</p>
-          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+3.4% vs 2018</p>
-          <p class="kpi-sub">ENIGH 2022</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
       </div>
 
       <!-- Charts row -->
       <div class="chart-grid mb-5">
         <div class="chart-card">
-          <p class="chart-title">Pirámide poblacional · Tabasco 2020</p>
+          <p class="chart-title" id="titulo-piramide">Pirámide poblacional · Tabasco</p>
           <div class="chart-wrap" style="height:300px">
             <canvas id="chart-pyramid"></canvas>
           </div>
         </div>
         <div class="chart-card">
-          <p class="chart-title">Distribución por sexo</p>
+          <p class="chart-title" id="titulo-sexo">Distribución por sexo</p>
           <div class="chart-wrap" style="height:260px">
             <canvas id="chart-sex-donut"></canvas>
           </div>
-          <p class="text-center text-xs text-gray-400 mt-2">Hombres 49.1% · Mujeres 50.9%</p>
+          <p class="text-center text-xs text-gray-400 mt-2" id="texto-sexo"></p>
         </div>
       </div>
 
-      <!-- Theme blocks -->
+      <!-- Theme blocks: índice de las secciones de gráficas -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-5">
-        <div class="card p-4">
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-1">
           <p class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-2">Bloque 1 · Tamaño y crecimiento</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Población total</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Tasa de crecimiento</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Densidad poblacional</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-2">
           <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-2">Bloque 2 · Estructura etaria</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Distribución por edad</span>
@@ -92,8 +93,8 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Pob. &lt;15 / &gt;15 años</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Rel. hombres-mujeres</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-3">
           <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-2">Bloque 3 · Salud y natalidad</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Tasa de fecundidad</span>
@@ -102,18 +103,18 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Mortalidad infantil</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">Defunciones por causa</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-4">
           <p class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-2">Bloque 4 · Movilidad poblacional</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Pob. residente 2020 que vivía en otro municipio/estado en 2015</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Causa de la migración</span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">Razón de dependencia</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-5">
           <p class="text-xs font-semibold uppercase tracking-wider text-red-800 mb-2">Bloque 5 · Hogares y bienestar</p>
           <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Razón de dependencia</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Nº de hogares</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Tamaño promedio</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Tipo de hogar</span>
@@ -121,8 +122,34 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Acceso a salud</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-800">Condiciones de vivienda</span>
           </div>
-        </div>
+        </a>
       </div>
+
+      <!-- Gráficas por bloque: tarjetas generadas desde data/indice.json (components/indicadores.js) -->
+      <section id="bloque-1" class="mb-7 scroll-mt-4" data-modulo="sociodemografico" data-bloque="1">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-3">Bloque 1 · Tamaño y crecimiento</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-2" class="mb-7 scroll-mt-4" data-modulo="sociodemografico" data-bloque="2">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-3">Bloque 2 · Estructura etaria</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-3" class="mb-7 scroll-mt-4" data-modulo="sociodemografico" data-bloque="3">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-3">Bloque 3 · Salud y natalidad</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-4" class="mb-7 scroll-mt-4" data-modulo="sociodemografico" data-bloque="4">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-3">Bloque 4 · Movilidad poblacional</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-5" class="mb-7 scroll-mt-4" data-modulo="sociodemografico" data-bloque="5">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-red-800 mb-3">Bloque 5 · Hogares y bienestar</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
 
       <!-- Periodicity legend -->
       <div class="flex flex-wrap items-center gap-2 mb-4">
@@ -141,31 +168,32 @@
               <th style="width:28%">Indicador</th>
               <th style="width:20%">Periodicidad / Fuente</th>
               <th>Justificación</th>
+              <th style="width:11%">Dato más reciente</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td class="td-name">Población total</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Denominador base para tasas, porcentajes y densidades; escala del territorio.</td></tr>
-            <tr><td class="td-name">Tasa de crecimiento</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Refleja la dinámica demográfica; clave para proyecciones de infraestructura y servicios.</td></tr>
-            <tr><td class="td-name">Densidad de población</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Distingue zonas urbanas y rurales; evalúa potencial de mercado y presión sobre servicios públicos.</td></tr>
-            <tr><td class="td-name">Distribución por edad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Permite construir la pirámide poblacional; revela si la población es joven, madura o envejecida.</td></tr>
-            <tr><td class="td-name">Edad mediana</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Resume la estructura etaria en un solo número; facilita comparaciones entre municipios.</td></tr>
-            <tr><td class="td-name">% adultos mayores</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica presión sobre servicios de salud y pensiones; señal de envejecimiento poblacional.</td></tr>
-            <tr><td class="td-name">Pob. &lt;15 y &gt;15 años</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Mide el peso de los grupos dependientes frente a la población en edad productiva.</td></tr>
-            <tr><td class="td-name">Relación hombres-mujeres</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Detecta desbalances de género que pueden indicar patrones migratorios o de mortalidad diferencial.</td></tr>
-            <tr><td class="td-name">Tasa de fecundidad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENADID</span></td><td class="td-just">Proyecta el crecimiento natural; anticipa demanda futura de servicios materno-infantiles.</td></tr>
-            <tr><td class="td-name">Nacimientos registrados</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Cuantifica las incorporaciones anuales a la población; insumo para proyecciones de corto plazo.</td></tr>
-            <tr><td class="td-name">Mortalidad general</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Mide la salida de población por deceso; complementa el análisis de crecimiento natural.</td></tr>
-            <tr><td class="td-name">Mortalidad infantil</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Indicador sensible de la calidad de los servicios de salud y del nivel de desarrollo social.</td></tr>
-            <tr><td class="td-name">Defunciones por causa</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Revela los principales riesgos de salud pública; orienta políticas de prevención y gasto sanitario.</td></tr>
-            <tr><td class="td-name">Pob. residente en 2020 que vivía en otro municipio/estado en 2015</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Solo el Censo capta este nivel de detalle; mide si Tabasco atrae o expulsa población.</td></tr>
-            <tr><td class="td-name">Causa de la migración</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Explica el porqué del desplazamiento (trabajo, familia, inseguridad); apoya diagnósticos de política pública.</td></tr>
-            <tr><td class="td-name">Razón de dependencia</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica cuántas personas dependen de cada habitante en edad productiva; refleja la capacidad de sostenimiento del territorio.</td></tr>
-            <tr><td class="td-name">Nº de hogares</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Base para estimar demanda de vivienda, servicios domésticos y bienes de consumo durable.</td></tr>
-            <tr><td class="td-name">Tamaño promedio del hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja cambios en la estructura familiar; influye en la demanda de vivienda y consumo per cápita.</td></tr>
-            <tr><td class="td-name">Tipo de hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Distingue hogares nucleares, ampliados y unipersonales; señal de transformaciones sociodemográficas.</td></tr>
-            <tr><td class="td-name">Nivel educativo</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Calidad del capital humano disponible; factor clave para atraer inversión y medir competitividad territorial.</td></tr>
-            <tr><td class="td-name">Acceso a servicios de salud</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Mide la cobertura institucional; identifica brechas de atención y vulnerabilidad social.</td></tr>
-            <tr><td class="td-name">Condiciones de vivienda</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja el nivel socioeconómico y la capacidad de consumo; indicador de rezago o bienestar territorial.</td></tr>
+            <tr data-indicador="poblacion-total"><td class="td-name">Población total</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Denominador base para tasas, porcentajes y densidades; escala del territorio.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="tasa-crecimiento"><td class="td-name">Tasa de crecimiento</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Refleja la dinámica demográfica; clave para proyecciones de infraestructura y servicios.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="densidad-poblacion"><td class="td-name">Densidad de población</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Distingue zonas urbanas y rurales; evalúa potencial de mercado y presión sobre servicios públicos.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="distribucion-edad"><td class="td-name">Distribución por edad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Permite construir la pirámide poblacional; revela si la población es joven, madura o envejecida.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="edad-mediana"><td class="td-name">Edad mediana</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Resume la estructura etaria en un solo número; facilita comparaciones entre municipios.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="adultos-mayores"><td class="td-name">% adultos mayores</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica presión sobre servicios de salud y pensiones; señal de envejecimiento poblacional.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="menores-mayores-15"><td class="td-name">Pob. &lt;15 y &gt;15 años</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Mide el peso de los grupos dependientes frente a la población en edad productiva.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="relacion-hombres-mujeres"><td class="td-name">Relación hombres-mujeres</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Detecta desbalances de género que pueden indicar patrones migratorios o de mortalidad diferencial.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="tasa-fecundidad"><td class="td-name">Tasa de fecundidad</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENADID</span></td><td class="td-just">Proyecta el crecimiento natural; anticipa demanda futura de servicios materno-infantiles.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="nacimientos"><td class="td-name">Nacimientos registrados</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Cuantifica las incorporaciones anuales a la población; insumo para proyecciones de corto plazo.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="mortalidad-general"><td class="td-name">Mortalidad general</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Mide la salida de población por deceso; complementa el análisis de crecimiento natural.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="mortalidad-infantil"><td class="td-name">Mortalidad infantil</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Indicador sensible de la calidad de los servicios de salud y del nivel de desarrollo social.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="defunciones-causa"><td class="td-name">Defunciones por causa</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">Estadísticas Vitales</span></td><td class="td-just">Revela los principales riesgos de salud pública; orienta políticas de prevención y gasto sanitario.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="migracion-residencia-2015"><td class="td-name">Pob. residente en 2020 que vivía en otro municipio/estado en 2015</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Solo el Censo capta este nivel de detalle; mide si Tabasco atrae o expulsa población.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="causa-migracion"><td class="td-name">Causa de la migración</td><td><span class="badge badge-decenal">Decenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Censo de Pob. y Viv.</span></td><td class="td-just">Explica el porqué del desplazamiento (trabajo, familia, inseguridad); apoya diagnósticos de política pública.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="razon-dependencia"><td class="td-name">Razón de dependencia</td><td><span class="badge badge-quin">Quinquenal</span><br><span class="text-xs text-gray-400 block mt-0.5">Encuesta Intercensal</span></td><td class="td-just">Indica cuántas personas dependen de cada habitante en edad productiva; refleja la capacidad de sostenimiento del territorio.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="numero-hogares"><td class="td-name">Nº de hogares</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Base para estimar demanda de vivienda, servicios domésticos y bienes de consumo durable.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="tamano-hogar"><td class="td-name">Tamaño promedio del hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja cambios en la estructura familiar; influye en la demanda de vivienda y consumo per cápita.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="tipo-hogar"><td class="td-name">Tipo de hogar</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Distingue hogares nucleares, ampliados y unipersonales; señal de transformaciones sociodemográficas.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="nivel-educativo"><td class="td-name">Nivel educativo</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Calidad del capital humano disponible; factor clave para atraer inversión y medir competitividad territorial.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="acceso-salud"><td class="td-name">Acceso a servicios de salud</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Mide la cobertura institucional; identifica brechas de atención y vulnerabilidad social.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="condiciones-vivienda"><td class="td-name">Condiciones de vivienda</td><td><span class="badge badge-bienal">Bienal</span><br><span class="text-xs text-gray-400 block mt-0.5">ENIGH</span></td><td class="td-just">Refleja el nivel socioeconómico y la capacidad de consumo; indicador de rezago o bienestar territorial.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
           </tbody>
         </table>
       </div>
