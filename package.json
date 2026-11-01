@@ -1,0 +1,23 @@
+{
+  "name": "ovie-tabasco",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Maquetado del Observatorio de Información Económica de Tabasco (OVIE)",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@tabler/icons-webfont": "3.50.0",
+    "chart.js": "4.4.0",
+    "leaflet": "1.9.4"
+  },
+  "devDependencies": {
+    "autoprefixer": "10.6.2",
+    "postcss": "8.5.32",
+    "tailwindcss": "3.4.19",
+    "vite": "8.3.5"
+  }
+}
