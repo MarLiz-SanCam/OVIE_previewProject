@@ -53,14 +53,15 @@ Generado por `npm run datos` el 2026-11-01. Este archivo no se publica: sirve pa
 - **Tasa de fecundidad** (`tasa-fecundidad`): Pendiente de fuente: no hay archivo en Info/ (ENADID).
 - **Defunciones por causa** (`defunciones-causa`): 83 de 616 valores vacíos (ND/NA o periodos sin dato).
 - **Población residente en 2020 que vivía en otro municipio/estado en 2015** (`migracion-residencia-2015`): Se conservan los totales por municipio y lugar de residencia en 2015; el desglose por estado de origen está en la hoja 04 del archivo.
+- **Tipo de hogar** (`tipo-hogar`): Columnas con el mismo nombre en el archivo: No especificado (2).
 - **PEA** (`pea`): 1 de 86 valores vacíos (ND/NA o periodos sin dato).
 - **PNEA** (`pnea`): 1 de 86 valores vacíos (ND/NA o periodos sin dato).
-- **Población ocupada** (`poblacion-ocupada`): 1 de 86 valores vacíos (ND/NA o periodos sin dato).
+- **Población ocupada** (`poblacion-ocupada`): Serie del BIE 6200093950; difiere del total de la consulta de Posición en la ocupación (ENOE). 1 de 86 valores vacíos (ND/NA o periodos sin dato).
 - **Duración de jornadas** (`duracion-jornadas`): 50 de 595 valores vacíos (ND/NA o periodos sin dato).
 - **Tasa de informalidad** (`tasa-informalidad`): Revisar: el archivo trae personas (11–18 millones), no una tasa en porcentaje para Tabasco. 1 de 86 valores vacíos (ND/NA o periodos sin dato). El archivo no indica la unidad de medida.
 - **Población desocupada por instrucción** (`desocupada-instruccion`): 256 de 1275 valores vacíos (ND/NA o periodos sin dato).
 - **PIBE total** (`pibe-total`): 1 de 66 valores vacíos (ND/NA o periodos sin dato).
-- **Aportación por sector** (`pibe-aportacion-sector`): Interpretado como contribución de cada gran sector a la variación del PIBE; confirmar.
+- **Aportación por sector** (`pibe-aportacion-sector`): Contribución de cada gran sector a la variación anual del PIBE (puntos porcentuales).
 - **ITAEE · total** (`itaee-total`): 4 de 184 valores vacíos (ND/NA o periodos sin dato).
 - **ITAEE · sector primario** (`itaee-primario`): 4 de 184 valores vacíos (ND/NA o periodos sin dato).
 - **ITAEE · sector secundario** (`itaee-secundario`): 4 de 184 valores vacíos (ND/NA o periodos sin dato).

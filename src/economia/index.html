@@ -30,52 +30,53 @@
 
       <!-- KPI Cards -->
       <div class="kpi-grid">
-        <div class="kpi-card k-blue">
+        <!-- Valores desde data/ (assets/js/pages/economia.js) -->
+        <div class="kpi-card k-blue" data-kpi="pibe">
           <p class="kpi-label">PIBE Tabasco</p>
-          <p class="kpi-value">$249.7 <span style="font-size:1rem;font-weight:400">mmdp</span></p>
-          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+1.8% real 2022</p>
-          <p class="kpi-sub">INEGI · Cuentas Nacionales</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-teal">
+        <div class="kpi-card k-teal" data-kpi="itaee">
           <p class="kpi-label">ITAEE var. anual</p>
-          <p class="kpi-value">+2.4 <span style="font-size:1rem;font-weight:400">pp</span></p>
-          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>Tendencia positiva</p>
-          <p class="kpi-sub">INEGI · Q4 2023</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-amber">
+        <div class="kpi-card k-amber" data-kpi="desocupacion">
           <p class="kpi-label">Tasa desocupación</p>
-          <p class="kpi-value">3.2 <span style="font-size:1rem;font-weight:400">%</span></p>
-          <p class="kpi-trend down"><i class="ti ti-arrow-down-right text-xs"></i>−0.4 pp vs 2022</p>
-          <p class="kpi-sub">ENOE · INEGI</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
-        <div class="kpi-card k-red">
+        <div class="kpi-card k-red" data-kpi="informalidad">
           <p class="kpi-label">Informalidad laboral</p>
-          <p class="kpi-value">56.4 <span style="font-size:1rem;font-weight:400">%</span></p>
-          <p class="kpi-trend down"><i class="ti ti-arrow-down-right text-xs"></i>−1.2 pp vs 2021</p>
-          <p class="kpi-sub">ENOE · INEGI</p>
+          <p class="kpi-value">—</p>
+          <p class="kpi-trend flat">&nbsp;</p>
+          <p class="kpi-sub"></p>
         </div>
       </div>
 
       <!-- Charts row -->
       <div class="chart-grid mb-5">
         <div class="chart-card">
-          <p class="chart-title">ITAEE por sector · Tabasco (base 2013 = 100)</p>
+          <p class="chart-title" id="titulo-itaee">ITAEE por sector · Tabasco (base 2018 = 100)</p>
           <div class="chart-wrap" style="height:280px">
             <canvas id="chart-itaee"></canvas>
           </div>
         </div>
         <div class="chart-card">
-          <p class="chart-title">PIBE por actividad económica · 2022</p>
+          <p class="chart-title" id="titulo-pibe">PIBE por actividad económica</p>
           <div class="chart-wrap" style="height:260px">
             <canvas id="chart-pibe"></canvas>
           </div>
-          <p class="text-center text-xs text-gray-400 mt-2">Minería / Petróleo: 42% del PIBE estatal</p>
+          <p class="text-center text-xs text-gray-400 mt-2" id="texto-pibe"></p>
         </div>
       </div>
 
-      <!-- Theme blocks -->
+      <!-- Theme blocks: índice de las secciones de gráficas -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-5">
-        <div class="card p-4">
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-1">
           <p class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-2">Mercado laboral</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">PEA / PNEA</span>
@@ -87,8 +88,8 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Tasa de informalidad</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-50 text-indigo-700">Desocupados por instrucción</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-2">
           <p class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-2">PIB estatal (PIBE)</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">PIBE total</span>
@@ -96,44 +97,61 @@
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">% por actividad</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gold-50 text-gold-700">Valor agregado bruto</span>
           </div>
-        </div>
-        <div class="card p-4">
+        </a>
+        <a class="card p-4 block hover:shadow-md transition-shadow" href="#bloque-3">
           <p class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-2">Indicadores alta frecuencia</p>
           <div class="flex flex-wrap gap-1.5">
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · total</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · primario</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · secundario</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · terciario</span>
-            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · energía</span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">ITAEE · sin minería petrolera</span>
             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber-50 text-amber-800">IMAIE mensual</span>
           </div>
-        </div>
+        </a>
       </div>
+
+      <!-- Gráficas por bloque: tarjetas generadas desde data/indice.json (components/indicadores.js) -->
+      <section id="bloque-1" class="mb-7 scroll-mt-4" data-modulo="economia" data-bloque="1">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-indigo-700 mb-3">Mercado laboral</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-2" class="mb-7 scroll-mt-4" data-modulo="economia" data-bloque="2">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-gold-700 mb-3">PIB estatal (PIBE)</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
+
+      <section id="bloque-3" class="mb-7 scroll-mt-4" data-modulo="economia" data-bloque="3">
+        <h2 class="text-xs font-semibold uppercase tracking-wider text-amber-800 mb-3">Indicadores de alta frecuencia</h2>
+        <div class="indicadores-grid grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+      </section>
 
       <!-- Indicators table -->
       <div class="data-table-wrap overflow-x-auto">
         <table class="data-table">
-          <thead><tr><th style="width:26%">Indicador</th><th style="width:20%">Periodicidad / Fuente</th><th>Justificación</th></tr></thead>
+          <thead><tr><th style="width:26%">Indicador</th><th style="width:20%">Periodicidad / Fuente</th><th>Justificación</th>
+              <th style="width:11%">Dato más reciente</th></tr></thead>
           <tbody>
-            <tr><td class="td-name">PEA</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Base productiva del territorio; refleja el potencial real de crecimiento económico y oferta laboral.</td></tr>
-            <tr><td class="td-name">PNEA</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Complemento de la PEA; identifica el volumen de personas fuera del mercado laboral.</td></tr>
-            <tr><td class="td-name">Población ocupada</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Mide la absorción efectiva de mano de obra; indicador directo del dinamismo económico.</td></tr>
-            <tr><td class="td-name">Posición en la ocupación</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Distingue empleados, trabajadores por cuenta propia y empleadores; revela la estructura del empleo.</td></tr>
-            <tr><td class="td-name">Sector de ocupación</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Identifica en qué sectores se concentra el empleo; apoya el análisis de la especialización económica.</td></tr>
-            <tr><td class="td-name">Nivel de ingresos</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Refleja la calidad del empleo y el poder adquisitivo; insumo para estimar potencial de consumo.</td></tr>
-            <tr><td class="td-name">Duración de jornadas</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Indica si predomina el empleo de tiempo completo o parcial; señal de precariedad laboral.</td></tr>
-            <tr><td class="td-name">Tasa de informalidad</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Refleja la calidad estructural del empleo; alta informalidad implica menor recaudación y productividad.</td></tr>
-            <tr><td class="td-name">Pob. desocupada por instrucción</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">ENOE</span></td><td class="td-just">Cruza desempleo con nivel educativo; detecta si la oferta de talento está alineada con el mercado.</td></tr>
-            <tr><td class="td-name">PIBE total</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Medida más completa del desempeño económico estatal; compara la participación en el PIB nacional.</td></tr>
-            <tr><td class="td-name">Aportación por sector</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Muestra qué actividades sostienen el crecimiento; clave para políticas de diversificación productiva.</td></tr>
-            <tr><td class="td-name">% por actividad económica</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Permite comparar la composición del PIBE a lo largo del tiempo; evidencia cambios estructurales.</td></tr>
-            <tr><td class="td-name">Valor agregado bruto</td><td><span class="badge badge-anual">Anual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI / BIE</span></td><td class="td-just">Revela la contribución real de cada sector descontando insumos intermedios.</td></tr>
-            <tr><td class="td-name">ITAEE · total</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Anticipa tendencias del PIB con mayor oportunidad; monitorea el ciclo económico en tiempo casi real.</td></tr>
-            <tr><td class="td-name">ITAEE · sector primario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Sigue el desempeño de agricultura, ganadería y pesca; relevante por el peso del sector agropecuario.</td></tr>
-            <tr><td class="td-name">ITAEE · sector secundario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Monitorea industria y manufactura; refleja el impacto de la actividad petrolera y petroquímica.</td></tr>
-            <tr><td class="td-name">ITAEE · sector terciario</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Sigue el comportamiento de comercio y servicios; sector con mayor diversidad y generación de empleo.</td></tr>
-            <tr><td class="td-name">ITAEE · energía</td><td><span class="badge badge-trimest">Trimestral</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Indicador estratégico para Tabasco dada su dependencia histórica del sector energético.</td></tr>
-            <tr><td class="td-name">IMAIE mensual</td><td><span class="badge badge-mensual">Mensual</span><br><span class="text-xs text-gray-400 block mt-0.5">INEGI</span></td><td class="td-just">Máxima frecuencia disponible para actividad industrial; detecta tendencias de corto plazo en manufactura, minería y construcción.</td></tr>
+            <tr data-indicador="pea"><td class="td-name">PEA</td><td class="td-fuente">—</td><td class="td-just">Base productiva del territorio; refleja el potencial real de crecimiento económico y oferta laboral.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="pnea"><td class="td-name">PNEA</td><td class="td-fuente">—</td><td class="td-just">Complemento de la PEA; identifica el volumen de personas fuera del mercado laboral.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="poblacion-ocupada"><td class="td-name">Población ocupada</td><td class="td-fuente">—</td><td class="td-just">Mide la absorción efectiva de mano de obra; indicador directo del dinamismo económico.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="posicion-ocupacion"><td class="td-name">Posición en la ocupación</td><td class="td-fuente">—</td><td class="td-just">Distingue empleados, trabajadores por cuenta propia y empleadores; revela la estructura del empleo.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="sector-ocupacion"><td class="td-name">Sector de ocupación</td><td class="td-fuente">—</td><td class="td-just">Identifica en qué sectores se concentra el empleo; apoya el análisis de la especialización económica.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="nivel-ingresos"><td class="td-name">Nivel de ingresos</td><td class="td-fuente">—</td><td class="td-just">Refleja la calidad del empleo y el poder adquisitivo; insumo para estimar potencial de consumo.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="duracion-jornadas"><td class="td-name">Duración de jornadas</td><td class="td-fuente">—</td><td class="td-just">Indica si predomina el empleo de tiempo completo o parcial; señal de precariedad laboral.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="tasa-informalidad"><td class="td-name">Tasa de informalidad</td><td class="td-fuente">—</td><td class="td-just">Refleja la calidad estructural del empleo; alta informalidad implica menor recaudación y productividad.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="desocupada-instruccion"><td class="td-name">Pob. desocupada por instrucción</td><td class="td-fuente">—</td><td class="td-just">Cruza desempleo con nivel educativo; detecta si la oferta de talento está alineada con el mercado.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="pibe-total"><td class="td-name">PIBE total</td><td class="td-fuente">—</td><td class="td-just">Medida más completa del desempeño económico estatal; compara la participación en el PIB nacional.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="pibe-aportacion-sector"><td class="td-name">Aportación por sector</td><td class="td-fuente">—</td><td class="td-just">Muestra qué actividades sostienen el crecimiento; clave para políticas de diversificación productiva.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="pibe-estructura"><td class="td-name">% por actividad económica</td><td class="td-fuente">—</td><td class="td-just">Permite comparar la composición del PIBE a lo largo del tiempo; evidencia cambios estructurales.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="pibe-vab"><td class="td-name">Valor agregado bruto</td><td class="td-fuente">—</td><td class="td-just">Revela la contribución real de cada sector descontando insumos intermedios.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="itaee-total"><td class="td-name">ITAEE · total</td><td class="td-fuente">—</td><td class="td-just">Anticipa tendencias del PIB con mayor oportunidad; monitorea el ciclo económico en tiempo casi real.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="itaee-primario"><td class="td-name">ITAEE · sector primario</td><td class="td-fuente">—</td><td class="td-just">Sigue el desempeño de agricultura, ganadería y pesca; relevante por el peso del sector agropecuario.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="itaee-secundario"><td class="td-name">ITAEE · sector secundario</td><td class="td-fuente">—</td><td class="td-just">Monitorea industria y manufactura; refleja el impacto de la actividad petrolera y petroquímica.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="itaee-terciario"><td class="td-name">ITAEE · sector terciario</td><td class="td-fuente">—</td><td class="td-just">Sigue el comportamiento de comercio y servicios; sector con mayor diversidad y generación de empleo.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="itaee-sin-mineria-petrolera"><td class="td-name">ITAEE · sin minería petrolera<br><span class="text-xs font-normal text-gray-400">Sustituye a ITAEE · energía</span></td><td class="td-fuente">—</td><td class="td-just">Indicador estratégico para Tabasco dada su dependencia histórica del sector energético.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
+            <tr data-indicador="imaief"><td class="td-name">IMAIE mensual</td><td class="td-fuente">—</td><td class="td-just">Máxima frecuencia disponible para actividad industrial; detecta tendencias de corto plazo en manufactura, minería y construcción.</td><td class="td-dato text-xs whitespace-nowrap">—</td></tr>
           </tbody>
         </table>
       </div>

@@ -86,7 +86,7 @@ export default function leerInegiExporta(archivos, { periodicidad, dimension, pe
         const n = vistos.get(idCelda) + 1; vistos.set(idCelda, n);
         dims[dimension ?? 'serie'] = `${serie} (${n})`; clave = JSON.stringify(dims);
       } else vistos.set(idCelda, 1);
-      if (!mapa.has(clave)) mapa.set(clave, { nombre: [...variables.map(k => p.filtros[k]), serie].join(' · '), dimensiones: dims, valores: {} });
+      if (!mapa.has(clave)) mapa.set(clave, { nombre: [...variables.map(k => p.filtros[k]), dims[dimension ?? 'serie']].join(' · '), dimensiones: dims, valores: {} });
       mapa.get(clave).valores[per] = v;
     }
   }
