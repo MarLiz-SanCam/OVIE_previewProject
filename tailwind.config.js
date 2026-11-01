@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Las plantillas en JS (tablas del comparador, popups) también usan clases de Tailwind
-  content: ['./index.html', './assets/js/**/*.js'],
+  // Las plantillas en JS (tablas del comparador, nav y tarjetas generadas) también usan clases de Tailwind
+  content: ['./src/**/*.html', './src/assets/js/**/*.js', './vite-plugins/**/*.js'],
   theme: {
     extend: {
       fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },

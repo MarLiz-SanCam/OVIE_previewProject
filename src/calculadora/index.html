@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- @include head {"titulo":"Calculadora · OVIE"} -->
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- @include franja -->
+  <!-- @include header -->
+  <!-- @include brand-bar -->
+
+  <main class="max-w-screen-xl mx-auto px-5 py-8">
+
+    <!-- @include nav {"activo":"calculadora"} -->
+
+    <div id="contenido">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#dcfce7;color:#15803d">
+          <i class="ti ti-calculator"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold text-gray-900">Calculadora territorial</h1>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Crea indicadores personalizados combinando variables sociodemográficas, económicas y turísticas mediante operaciones matemáticas básicas.
+          </p>
+        </div>
+      </div>
+
+      <div class="card p-6 mb-5">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-5">Constructor de fórmula</p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
+          <div class="lg:col-span-1">
+            <label for="calc-area" class="form-label">Área</label>
+            <select id="calc-area" class="form-control">
+              <option>Todo Tabasco</option>
+              <option>Villahermosa</option>
+              <option>Centro</option>
+              <option>Cárdenas</option>
+              <option>Comalcalco</option>
+              <option>Macuspana</option>
+            </select>
+          </div>
+          <div class="lg:col-span-2">
+            <label for="calc-var1" class="form-label">Variable 1</label>
+            <select id="calc-var1" class="form-control">
+              <option value="pob_total">Población total</option>
+              <option value="pob_pea">PEA</option>
+              <option value="pob_ocupada">Población ocupada</option>
+              <option value="num_hogares">Nº de hogares</option>
+              <option value="pib_mmp">PIBE (millones de pesos)</option>
+              <option value="pib_pc">PIB per cápita (pesos)</option>
+              <option value="tasa_informal">Tasa de informalidad (%)</option>
+              <option value="mortalidad">Mortalidad general</option>
+              <option value="fecundidad">Tasa global de fecundidad</option>
+              <option value="densidad">Densidad (hab/km²)</option>
+              <option value="edad_mediana">Edad mediana</option>
+            </select>
+          </div>
+          <div class="lg:col-span-1 text-center">
+            <label for="calc-op" class="form-label">Operador</label>
+            <select id="calc-op" class="form-control text-center font-bold text-lg">
+              <option value="÷">÷</option>
+              <option value="×">×</option>
+              <option value="+">+</option>
+              <option value="-">−</option>
+            </select>
+          </div>
+          <div class="lg:col-span-2">
+            <label for="calc-var2" class="form-label">Variable 2</label>
+            <select id="calc-var2" class="form-control">
+              <option value="num_hogares">Nº de hogares</option>
+              <option value="pob_total">Población total</option>
+              <option value="pob_pea">PEA</option>
+              <option value="pob_ocupada">Población ocupada</option>
+              <option value="pib_mmp">PIBE (millones de pesos)</option>
+              <option value="pib_pc">PIB per cápita (pesos)</option>
+              <option value="tasa_informal">Tasa de informalidad (%)</option>
+              <option value="mortalidad">Mortalidad general</option>
+              <option value="fecundidad">Tasa global de fecundidad</option>
+              <option value="densidad">Densidad (hab/km²)</option>
+              <option value="edad_mediana">Edad mediana</option>
+            </select>
+          </div>
+        </div>
+        <div class="mt-5 flex gap-3">
+          <button class="btn btn-primary" data-accion="calcular">
+            <i class="ti ti-calculator"></i> Calcular indicador
+          </button>
+          <button class="btn btn-outline" data-accion="limpiar">
+            <i class="ti ti-refresh"></i> Limpiar
+          </button>
+        </div>
+
+        <div id="calc-result" class="calc-result-card" style="display:none">
+          <p class="text-xs font-semibold uppercase tracking-wider text-gray-400 mb-2">Resultado</p>
+          <p id="calc-result-value" class="calc-result-value">—</p>
+          <p id="calc-result-formula" class="calc-result-label"></p>
+          <p id="calc-result-area" class="text-xs text-gray-400 mt-1"></p>
+          <div class="flex gap-2 justify-center mt-4">
+            <button class="btn btn-sm btn-outline"><i class="ti ti-bookmark text-xs"></i> Guardar fórmula</button>
+            <button class="btn btn-sm btn-outline"><i class="ti ti-download text-xs"></i> Exportar CSV</button>
+          </div>
+        </div>
+      </div>
+
+      <p class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 mb-3">
+        <i class="ti ti-clock"></i> Funciones planeadas · todavía no disponibles en este maquetado
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-green-700 mb-4">Constructor de fórmulas</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-map-pin text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selector de área</p><p class="text-xs text-gray-500 mt-0.5">Área previamente guardada sobre la cual se realizará el cálculo.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-variable text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Variable 1 y Variable 2</p><p class="text-xs text-gray-500 mt-0.5">Catálogo por tema: sociodemográficas, económicas, turísticas.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-math-function text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Operador matemático</p><p class="text-xs text-gray-500 mt-0.5">Suma, resta, multiplicación y división entre variables.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-green-700 mb-4">Resultados y gestión</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-calculator text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Resultado calculado</p><p class="text-xs text-gray-500 mt-0.5">Valor del indicador personalizado para el área seleccionada.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-bookmark text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Guardar fórmula</p><p class="text-xs text-gray-500 mt-0.5">Nombrar y almacenar la fórmula para usos posteriores.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-download text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Exportar resultado</p><p class="text-xs text-gray-500 mt-0.5">Descarga en formato CSV.</p></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-5">
+        <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Indicadores calculables de ejemplo</p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Productividad laboral</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Densidad de competencia</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Potencial de consumo</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Ingreso per cápita estimado</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Ratio empleo / población</span>
+          <span class="px-3 py-1 rounded-full text-xs font-medium bg-green-50 text-green-800 border border-green-100">Dependencia económica</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script type="module" src="/assets/js/pages/calculadora.js"></script>
+
+  <!-- marliz was here coding. -->
+</body>
+</html>

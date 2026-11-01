@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- @include head {"titulo":"Turismo · OVIE"} -->
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- @include franja -->
+  <!-- @include header -->
+  <!-- @include brand-bar -->
+
+  <main class="max-w-screen-xl mx-auto px-5 py-8">
+
+    <!-- @include nav {"activo":"turismo"} -->
+
+    <div id="contenido">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#e0f2fe;color:#0369a1">
+          <i class="ti ti-map-pin"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold text-gray-900">Información turística · Tabasco</h1>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Mapa interactivo por capas que integra la oferta turística del estado, combinando datos de la SETUDE con estadísticas del INEGI para apoyar la inversión y planeación turística.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tourism KPI cards -->
+      <div class="kpi-grid mb-5">
+        <div class="kpi-card k-blue">
+          <p class="kpi-label">Visitantes / año</p>
+          <p class="kpi-value">1.2 <span style="font-size:1rem;font-weight:400">M</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+8.4% vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+        <div class="kpi-card k-teal">
+          <p class="kpi-label">Hoteles registrados</p>
+          <p class="kpi-value">189</p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+6 nuevos en 2023</p>
+          <p class="kpi-sub">INEGI · DENUE</p>
+        </div>
+        <div class="kpi-card k-amber">
+          <p class="kpi-label">Ocupación hotelera</p>
+          <p class="kpi-value">54.6 <span style="font-size:1rem;font-weight:400">%</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+3.1 pp vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+        <div class="kpi-card k-emerald">
+          <p class="kpi-label">Derrama económica</p>
+          <p class="kpi-value">$2.8 <span style="font-size:1rem;font-weight:400">mmdp</span></p>
+          <p class="kpi-trend up"><i class="ti ti-arrow-up-right text-xs"></i>+12.3% vs 2022</p>
+          <p class="kpi-sub">SETUDE · 2023</p>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div class="map-outer mb-5">
+        <div class="map-toolbar">
+          <span class="text-xs font-semibold text-gray-500 uppercase tracking-wider mr-2">Capas</span>
+          <button class="layer-toggle active" data-capa="rutas">
+            <span class="layer-dot" style="background:#1e5f8c"></span>Rutas turísticas
+          </button>
+          <button class="layer-toggle active" data-capa="pueblos">
+            <span class="layer-dot" style="background:#fbbf24"></span>Pueblos Mágicos
+          </button>
+          <button class="layer-toggle active" data-capa="hoteles">
+            <span class="layer-dot" style="background:#7c3aed"></span>Hoteles
+          </button>
+          <button class="layer-toggle active" data-capa="museos">
+            <span class="layer-dot" style="background:#4f46e5"></span>Museos / Cultura
+          </button>
+          <button class="layer-toggle active" data-capa="eco">
+            <span class="layer-dot" style="background:#059669"></span>Ecoturismo
+          </button>
+        </div>
+        <div id="map-turismo" style="height:420px"></div>
+      </div>
+
+      <!-- Route cards -->
+      <p class="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">Rutas turísticas oficiales · SETUDE</p>
+      <div class="routes-grid">
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta1_Villahermosa.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#7fb9d8">Ruta 1</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Gran Ruta Villahermosa</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Cultura, arqueología olmeca y vida urbana en la capital del estado. Zona CICOM y Parque Museo La Venta.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Museos</span>
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Gastronomía</span>
+              <span class="px-2 py-0.5 bg-blue-50 text-blue-700 rounded-full text-xs">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta2_PantanosCentla.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#6ee7b7">Ruta 2</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Pantanos de Centla</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Reserva de la biósfera, manglares, flora y fauna acuática única. Avistamiento de manatíes y lagartos.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Ecoturismo</span>
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Avifauna</span>
+              <span class="px-2 py-0.5 bg-gold-50 text-gold-700 rounded-full text-xs">Kayak</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta3_BijYokotan.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#fcd34d">Ruta 3</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Bij Yokot'an</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Cultura chontal viva: artesanías, danzas prehispánicas y gastronomía ancestral en los municipios del norte.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Cultura</span>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Artesanías</span>
+              <span class="px-2 py-0.5 bg-amber-50 text-amber-800 rounded-full text-xs">Gastronomía</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta4_AventuraOlmecaZoque.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#c4b5fd">Ruta 4</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Aventura Olmeca-Zoque</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Grutas de Coconá, aguas termales de Teapa y zonas arqueológicas del sur del estado.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Grutas</span>
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Termal</span>
+              <span class="px-2 py-0.5 bg-violet-50 text-violet-700 rounded-full text-xs">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta5_RiosMayas.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#bae6fd">Ruta 5</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Ríos Mayas</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">El río Usumacinta como frontera viva con Guatemala. Selva lacandona, sitios mayas y ecoaventura.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Ríos</span>
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Selva</span>
+              <span class="px-2 py-0.5 bg-sky-50 text-sky-700 rounded-full text-xs">Maya</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+        <div class="route-card">
+          <div class="route-card-hdr" style="background-image:url('/assets/images/rutas_turisticas/Ruta6_CacaoChocolate.png'); background-size:cover; background-position:center">
+            <span class="text-xs font-semibold uppercase tracking-wider" style="color:#fde68a">Ruta 6</span>
+            <h3 class="text-white font-bold text-base leading-tight mt-1">Del Cacao al Chocolate</h3>
+          </div>
+          <div class="route-card-body">
+            <p class="text-xs text-gray-500 leading-relaxed">Comalcalco, tierra del cacao más antiguo de México. Zona arqueológica, haciendas cacaoteras y chocolaterías artesanales.</p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Cacao</span>
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Gastronomía</span>
+              <span class="px-2 py-0.5 rounded-full text-xs" style="background:#fef3c7;color:#92400e">Arqueología</span>
+            </div>
+            <p class="text-xs text-gray-400 mt-3"><span class="font-medium">Fuente:</span> SETUDE</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Map features panels -->
+      <hr class="divider">
+      <p class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 mb-3">
+        <i class="ti ti-clock"></i> Funciones planeadas · todavía no disponibles en este maquetado
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-4">Funcionalidades interactivas</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-layers-subtract text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selección de capas</p><p class="text-xs text-gray-500 mt-0.5">Panel con casillas para activar / desactivar cada tipo de punto.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-zoom-in text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Zoom contextual</p><p class="text-xs text-gray-500 mt-0.5">Al seleccionar ruta o pueblo mágico, el mapa ajusta el zoom.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-circle text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Radio de influencia</p><p class="text-xs text-gray-500 mt-0.5">Dibuja un radio y muestra todos los servicios turísticos cercanos.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-download text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Descarga de datos</p><p class="text-xs text-gray-500 mt-0.5">Exporta lo visible en el mapa como CSV o GeoJSON.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-blue-700 mb-4">Filtros del panel lateral</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Tipo de establecimiento</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Rango de precios</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Categoría de hotel</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Villahermosa</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Pantanos de Centla</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Bij Yokot'an</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Aventura Olmeca-Zoque</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Ríos Mayas</span>
+            <span class="px-3 py-1 rounded-full text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100">Del Cacao al Chocolate</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script type="module" src="/assets/js/pages/turismo.js"></script>
+
+  <!-- marliz was here coding. -->
+</body>
+</html>

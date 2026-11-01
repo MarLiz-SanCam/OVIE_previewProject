@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- @include head {"titulo":"Comparar áreas · OVIE"} -->
+</head>
+
+<body class="bg-gray-50 text-gray-800 font-sans antialiased">
+
+  <!-- @include franja -->
+  <!-- @include header -->
+  <!-- @include brand-bar -->
+
+  <main class="max-w-screen-xl mx-auto px-5 py-8">
+
+    <!-- @include nav {"activo":"comparar"} -->
+
+    <div id="contenido">
+
+      <div class="sec-header">
+        <div class="sec-icon" style="background:#fce7f3;color:#be185d">
+          <i class="ti ti-arrows-diff"></i>
+        </div>
+        <div>
+          <h1 class="text-base font-semibold text-gray-900">Comparar áreas</h1>
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-2xl">
+            Compara dos municipios o zonas usando indicadores sociodemográficos, económicos y de bienestar lado a lado.
+          </p>
+        </div>
+      </div>
+
+      <!-- Area selectors -->
+      <div class="card p-5 mb-4">
+        <div class="comp-selectors mb-4">
+          <div>
+            <label class="form-label comp-header-a">Área A</label>
+            <select id="comp-a" class="form-control">
+              <option>Villahermosa</option>
+              <option>Centro</option>
+              <option>Cárdenas</option>
+              <option>Paraíso</option>
+              <option>Comalcalco</option>
+              <option>Nacajuca</option>
+              <option>Cunduacán</option>
+              <option>Macuspana</option>
+              <option>Teapa</option>
+              <option>Balancán</option>
+            </select>
+          </div>
+          <div class="flex justify-center" style="padding-top:22px">
+            <div class="vs-badge">VS</div>
+          </div>
+          <div>
+            <label class="form-label comp-header-b">Área B</label>
+            <select id="comp-b" class="form-control">
+              <option>Centro</option>
+              <option>Villahermosa</option>
+              <option>Cárdenas</option>
+              <option>Paraíso</option>
+              <option>Comalcalco</option>
+              <option>Nacajuca</option>
+              <option>Cunduacán</option>
+              <option>Macuspana</option>
+              <option>Teapa</option>
+              <option>Balancán</option>
+            </select>
+          </div>
+        </div>
+        <div class="flex gap-3">
+          <button class="btn btn-primary" data-accion="comparar">
+            <i class="ti ti-arrows-diff"></i> Comparar
+          </button>
+          <button class="btn btn-outline" data-accion="limpiar">
+            <i class="ti ti-x"></i> Limpiar
+          </button>
+        </div>
+      </div>
+
+      <!-- Comparison results (initially hidden) -->
+      <div id="comp-table" style="display:none" class="mb-5">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 data-table-wrap overflow-x-auto">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th style="width:32%">Indicador</th>
+                  <th id="comp-header-a" class="comp-header-a" style="width:24%">Área A</th>
+                  <th id="comp-header-b" class="comp-header-b" style="width:24%">Área B</th>
+                  <th>Diferencia</th>
+                </tr>
+              </thead>
+              <tbody id="comp-tbody"></tbody>
+            </table>
+            <p class="text-xs text-gray-400 px-4 py-2">* Informalidad: menor valor = mejor desempeño.</p>
+          </div>
+          <div class="chart-card">
+            <p class="chart-title">Comparativa normalizada (0–100)</p>
+            <div class="chart-wrap" style="height:280px">
+              <canvas id="chart-radar"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features panels -->
+      <p class="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200 mb-3">
+        <i class="ti ti-clock"></i> Funciones planeadas · todavía no disponibles en este maquetado
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-pink-700 mb-4">Elementos de la interfaz</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-map-2 text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Selector de área A y B</p><p class="text-xs text-gray-500 mt-0.5">Menú con municipios y áreas guardadas por el usuario.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-table text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Panel de indicadores</p><p class="text-xs text-gray-500 mt-0.5">Tabla con valores lado a lado, organizados por categoría.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-chart-radar text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Gráfica radar comparativa</p><p class="text-xs text-gray-500 mt-0.5">Perfil normalizado que facilita interpretar diferencias territoriales.</p></div></div>
+          </div>
+        </div>
+        <div class="card p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-pink-700 mb-4">Acciones disponibles</p>
+          <div class="space-y-4">
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-device-floppy text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Guardar comparación</p><p class="text-xs text-gray-500 mt-0.5">Almacena la comparación para revisarla en otra sesión.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-file-export text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Exportar comparación</p><p class="text-xs text-gray-500 mt-0.5">Descarga los datos en CSV o Excel.</p></div></div>
+            <div class="flex gap-3"><div class="w-8 h-8 rounded-md bg-gray-50 border border-gray-200 flex items-center justify-center flex-shrink-0"><i class="ti ti-sparkles text-gray-500"></i></div><div><p class="text-sm font-medium text-gray-800">Resumen automático</p><p class="text-xs text-gray-500 mt-0.5">Destaca las principales ventajas de cada zona comparada.</p></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="info-note">
+        <strong>Casos de uso:</strong> Elegir la ubicación óptima para un negocio &nbsp;·&nbsp; Evaluar mercados potenciales &nbsp;·&nbsp; Conocer características distintivas de territorios antes de invertir.
+      </div>
+    </div>
+
+  </main>
+
+  <!-- @include footer -->
+
+  <script type="module" src="/assets/js/pages/comparar.js"></script>
+
+  <!-- marliz was here coding. -->
+</body>
+</html>
