@@ -102,6 +102,10 @@
 .badge-trimest { background: #fff7ed; color: #9a3412; }
 .badge-mensual { background: #e1f5ee; color: #0f6e56; }
 
+/* Selector de rango del eje X en tarjetas de indicador */
+.rango-select { border: 1px solid #d1d5db; border-radius: 6px; padding: 1px 4px; font-size: 0.6875rem; background: white; color: #374151; outline: none; }
+.rango-select:focus { border-color: var(--brand-400); }
+
 
 .sec-header {
   display: flex;
