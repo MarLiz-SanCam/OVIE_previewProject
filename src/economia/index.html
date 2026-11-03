@@ -60,7 +60,10 @@
       <!-- Charts row -->
       <div class="chart-grid mb-5">
         <div class="chart-card">
-          <p class="chart-title" id="titulo-itaee">ITAEE por sector · Tabasco (base 2018 = 100)</p>
+          <div class="flex flex-wrap items-start justify-between gap-x-3 gap-y-2 mb-3">
+            <p class="chart-title" id="titulo-itaee" style="margin:0">ITAEE por sector · Tabasco (base 2018 = 100)</p>
+            <div id="rango-itaee" class="ml-auto"></div>
+          </div>
           <div class="chart-wrap" style="height:280px">
             <canvas id="chart-itaee"></canvas>
           </div>

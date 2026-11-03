@@ -125,15 +125,10 @@ export const POR_REVISAR = {
   'tasa-informalidad': 'Por revisar: el archivo trae personas (serie 6200093709), no una tasa en porcentaje para Tabasco.',
 };
 
-/** Indicadores con selector de rango "Desde / Hasta" sobre el eje X (en prueba). */
-export const CON_RANGO = ['poblacion-total'];
-
-/** Deja solo las posiciones del eje X entre los índices desde y hasta (incluidos). */
-export const recortar = (vista, desde, hasta) => ({
-  ...vista,
-  etiquetas: vista.etiquetas.slice(desde, hasta + 1),
-  series: vista.series.map(s => ({ ...s, valores: s.valores.slice(desde, hasta + 1) })),
-});
+/** Las vistas cuyo eje son los periodos del indicador (más de uno) llevan selector de rango "Desde / Hasta". */
+export const conRango = (datos, vista) =>
+  vista.etiquetas?.length > 1 && vista.etiquetas.length === datos.periodos.length
+  && vista.etiquetas.every((e, k) => e === periodoLegible(datos.periodos[k]));
 
 // Tipos que comparan varias series: por defecto se muestran todas; los demás, solo la principal
 const MULTISERIE = ['area-apilada', 'area-apilada-100', 'columnas-apiladas-100', 'barras-apiladas-100', 'lineas-multiserie'];

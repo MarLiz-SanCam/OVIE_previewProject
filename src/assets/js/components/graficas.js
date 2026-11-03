@@ -150,3 +150,33 @@ export function dibujar(canvas, vista) {
   Chart.getChart(canvas)?.destroy();
   return new Chart(canvas, render(vista));
 }
+
+/** Deja solo las posiciones del eje entre los índices desde y hasta (incluidos). */
+const recortar = (vista, desde, hasta) => ({
+  ...vista,
+  etiquetas: vista.etiquetas.slice(desde, hasta + 1),
+  series: vista.series.map(s => ({ ...s, valores: s.valores.slice(desde, hasta + 1) })),
+});
+
+/**
+ * Dibuja la vista con selectores "Desde / Hasta" que redibujan solo ese tramo del eje (extremos incluidos).
+ * Devuelve el contenedor de los selectores para colocarlo en la tarjeta; arranca con el rango completo.
+ */
+export function dibujarConRango(canvas, vista) {
+  const caja = document.createElement('div');
+  caja.className = 'flex items-center gap-1 text-xs text-gray-500';
+  caja.innerHTML = '<label>Desde <select class="rango-select"></select></label><label>Hasta <select class="rango-select"></select></label>';
+  const [selDesde, selHasta] = caja.querySelectorAll('select');
+  const n = vista.etiquetas.length;
+  // "Desde" solo ofrece posiciones ≤ "Hasta" y viceversa, así no se puede elegir un rango invertido
+  const opciones = (sel, de, a, valor) =>
+    sel.replaceChildren(...vista.etiquetas.slice(de, a + 1).map((e, k) => new Option(e, de + k, false, de + k === valor)));
+  const aplicar = (desde, hasta) => {
+    opciones(selDesde, 0, hasta, desde);
+    opciones(selHasta, desde, n - 1, hasta);
+    dibujar(canvas, recortar(vista, desde, hasta));
+  };
+  caja.addEventListener('change', () => aplicar(+selDesde.value, +selHasta.value));
+  aplicar(0, n - 1);
+  return caja;
+}

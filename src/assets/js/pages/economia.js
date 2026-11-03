@@ -1,6 +1,6 @@
 import '../core/main.js';
 import { cargarIndicador, periodoLegible, numero, signo } from '../components/datos.js';
-import { dibujar } from '../components/graficas.js';
+import { dibujar, dibujarConRango } from '../components/graficas.js';
 import { ponerKpi, pendienteKpi, ultimoYAnterior, direccion } from '../components/kpi.js';
 import { montarIndicadores } from '../components/indicadores.js';
 
@@ -38,7 +38,7 @@ async function graficasPrincipales() {
   const nombres = ['Total', 'Primario', 'Secundario', 'Terciario'];
   const series = await Promise.all(ids.map(id => cargarIndicador(M, id)));
   const periodos = series[0].periodos.slice(-12);
-  dibujar(document.getElementById('chart-itaee'), {
+  document.getElementById('rango-itaee').append(dibujarConRango(document.getElementById('chart-itaee'), {
     tipo: 'linea',
     etiquetas: periodos.map(periodoLegible),
     series: series.map((d, i) => {
@@ -46,7 +46,7 @@ async function graficasPrincipales() {
       return { nombre: nombres[i], valores: periodos.map(p => s.valores[d.periodos.indexOf(p)] ?? null) };
     }),
     unidad: 'Índice (2018 = 100)',
-  });
+  }));
   document.getElementById('titulo-itaee').textContent =
     `ITAEE por sector · Tabasco (base 2018 = 100) · ${periodoLegible(periodos[0])} – ${periodoLegible(periodos.at(-1))}`;
 

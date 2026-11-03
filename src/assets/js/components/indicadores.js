@@ -5,8 +5,8 @@
 //   <tr data-indicador="pea"><td class="td-dato"></td></tr>
 //     → periodo más reciente del indicador.
 import { cargar, cargarIndicador, periodoLegible, periodicidad, fuenteCorta } from './datos.js';
-import { dibujar } from './graficas.js';
-import { vistaDe, POR_REVISAR, CON_RANGO, recortar } from '../config/vistas.js';
+import { dibujar, dibujarConRango } from './graficas.js';
+import { vistaDe, POR_REVISAR, conRango } from '../config/vistas.js';
 
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 
@@ -28,13 +28,9 @@ function tarjeta(ind) {
       ? aviso(POR_REVISAR[ind.id], 'bg-amber-50 text-amber-800')
       : `<div class="chart-wrap" style="height:240px"><canvas role="img" aria-label="${esc(ind.titulo)}"></canvas></div>`;
   art.innerHTML = `
-    <div class="flex ${CON_RANGO.includes(ind.id) ? 'flex-wrap' : ''} items-start justify-between gap-x-3 gap-y-2 mb-3">
+    <div class="ind-cabecera flex items-start justify-between gap-x-3 gap-y-2 mb-3">
       <h3 class="chart-title" style="margin:0">${esc(ind.titulo)}${ind.sustituye ? ` <span class="font-normal normal-case tracking-normal">(sustituye a ${esc(ind.sustituye)})</span>` : ''}</h3>
-      <div class="flex flex-wrap items-center justify-end gap-2 ml-auto shrink-0">
-        <div class="ind-rango hidden items-center gap-1 text-xs text-gray-500">
-          <label>Desde <select class="rango-select" data-extremo="desde" aria-label="Desde"></select></label>
-          <label>Hasta <select class="rango-select" data-extremo="hasta" aria-label="Hasta"></select></label>
-        </div>
+      <div class="ind-acciones flex flex-wrap items-center justify-end gap-2 ml-auto shrink-0">
         <span class="badge ${clase}">${per}</span>
       </div>
     </div>
@@ -58,33 +54,14 @@ async function llenar(art, ind) {
     const canvas = art.querySelector('canvas');
     if (!canvas) return;
     const vista = vistaDe(datos);
-    dibujar(canvas, vista);
-    if (CON_RANGO.includes(ind.id)) montarRango(art, canvas, vista);
+    if (!conRango(datos, vista)) return dibujar(canvas, vista);
+    art.querySelector('.ind-acciones').prepend(dibujarConRango(canvas, vista));
+    // Con selectores el encabezado puede no caber en una línea (celular)
+    art.querySelector('.ind-cabecera').classList.add('flex-wrap');
   } catch (e) {
     pie.innerHTML = `<span class="text-red-600">No se pudo mostrar este indicador (${esc(e.message)}).</span>`;
     console.error(ind.id, e);
   }
-}
-
-/** Selectores "Desde / Hasta": redibujan solo el tramo elegido del eje X (extremos incluidos). */
-function montarRango(art, canvas, vista) {
-  const caja = art.querySelector('.ind-rango');
-  const [selDesde, selHasta] = caja.querySelectorAll('select');
-  const n = vista.etiquetas.length;
-  // "Desde" solo ofrece posiciones ≤ "Hasta" y viceversa, así no se puede elegir un rango invertido
-  const opciones = (sel, de, a, valor) => {
-    sel.innerHTML = vista.etiquetas.slice(de, a + 1)
-      .map((e, k) => `<option value="${de + k}"${de + k === valor ? ' selected' : ''}>${esc(e)}</option>`).join('');
-  };
-  const aplicar = (desde, hasta) => {
-    opciones(selDesde, 0, hasta, desde);
-    opciones(selHasta, desde, n - 1, hasta);
-    dibujar(canvas, recortar(vista, desde, hasta));
-  };
-  caja.addEventListener('change', () => aplicar(+selDesde.value, +selHasta.value));
-  opciones(selDesde, 0, n - 1, 0);
-  opciones(selHasta, 0, n - 1, n - 1);
-  caja.classList.replace('hidden', 'flex');
 }
 
 const observador = new IntersectionObserver(entradas => {
